@@ -15,7 +15,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ADCSchedulerModule } from "@angular-date-components/scheduler";
+import { ADCSchedulerComponent } from "@asadi/angular-date-components/scheduler";
 
 
 import { SchedulerComponent } from './components/scheduler/scheduler.component';
@@ -33,7 +33,7 @@ import { EventEditComponent } from './components/event-edit/event-edit.component
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ADCSchedulerModule,
+    ADCSchedulerComponent,
     ReactiveFormsModule,
 
     MatFormFieldModule,

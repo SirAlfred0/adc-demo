@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ADCIEvent } from '@angular-date-components/scheduler';
+import { ADCIEvent } from '@asadi/angular-date-components/core';
 
 
 export class DataService {

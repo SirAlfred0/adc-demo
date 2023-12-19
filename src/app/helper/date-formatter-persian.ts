@@ -1,4 +1,4 @@
-import { ADCIDateFormatter, ADCDateSplitter } from "@angular-date-components/scheduler";
+import { ADCIDateFormatter, ADCDateSplitter } from "@asadi/angular-date-components/core";
 
 export class DateFormatterPersian implements ADCIDateFormatter
 {

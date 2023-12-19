@@ -1,7 +1,6 @@
 import { Component, OnInit} from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { ADC_OPTIONS } from '@angular-date-components/scheduler';
-import * as moment from 'jalali-moment';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ADC_OPTIONS } from '@asadi/angular-date-components/core';
 import { SchedulerOptionsPersian } from './helper/scheduler-options-persian';
 import { DependencyHolder } from './helper/dependencyHolder';
 

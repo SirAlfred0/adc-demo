@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { Observable, delay, of } from 'rxjs';
-import { ADCIEvent } from '@angular-date-components/scheduler';
+import { ADCIEvent } from '@asadi/angular-date-components/core';
 
 @Injectable({
   providedIn: 'root'

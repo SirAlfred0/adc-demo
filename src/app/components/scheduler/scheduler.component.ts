@@ -1,8 +1,9 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ADC_DATE_ADAPTER, ADC_DATE_FORMATTER, ADCIDateAdapter, ADCIDateFormatter, ADCIEvent, ADCEventsSource, ADCILabels, ADC_LABELS } 
-from '@angular-date-components/scheduler';
+import { ADC_DATE_ADAPTER, ADC_DATE_FORMATTER, ADCIDateAdapter, ADCIDateFormatter, ADCIEvent, ADCILabels, ADC_LABELS } 
+from '@asadi/angular-date-components/core';
+import { ADCEventsSource } from '@asadi/angular-date-components/scheduler';
 import * as moment from 'jalali-moment';
 import { DateAdapterPersian } from 'src/app/helper/date-adapter-persian';
 import { DateAdapterEnglish } from 'src/app/helper/date-adapter-english';
@@ -81,7 +82,7 @@ export class SchedulerComponent {
     ]),
   });
 
-  @ViewChild(ADCEventsSource) jcEventsSource: ADCEventsSource = {} as ADCEventsSource;
+  @ViewChild(ADCEventsSource) adcEventsSource: ADCEventsSource = {} as ADCEventsSource;
 
   constructor(
     private dialog: MatDialog,
@@ -154,8 +155,8 @@ export class SchedulerComponent {
     this.eventService.list().subscribe({
       next: (res: ADCIEvent[]) =>
       {
-        console.log(res);
-        this.jcEventsSource.events = res;
+        console.log(this.adcEventsSource);
+        //this.adcEventsSource.events = res;
       },
     })
   }

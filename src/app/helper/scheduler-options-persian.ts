@@ -1,5 +1,5 @@
-import { Inject, Injectable } from "@angular/core";
-import { ADCIOptions } from "@angular-date-components/scheduler";
+
+import { ADCIOptions } from "@asadi/angular-date-components/core";
 
 
 export class SchedulerOptionsPersian implements ADCIOptions
