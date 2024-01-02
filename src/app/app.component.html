@@ -1,3 +1,4 @@
+
 <div class="p-4">
     <div class="bg-slate-100 rounded-md shadow-md overflow-hidden py-2 px-4 my-4">
         <form [formGroup]="form"  class="flex flex-col items-start justify-start gap-2">
@@ -48,8 +49,19 @@
         </form>
     </div>
 
-    <ng-container *ngIf="loading == false">
-        <app-scheduler></app-scheduler>
-    </ng-container>
+    <mat-tab-group>
+        <mat-tab label="scheduler">
+            <ng-container *ngIf="loading == false">
+                <app-scheduler></app-scheduler>
+            </ng-container>
+        </mat-tab>
+        <mat-tab label="resource scheduler">
+            <ng-container *ngIf="loading == false">
+                <app-resource-scheduler></app-resource-scheduler>
+            </ng-container>
+        </mat-tab>
+    </mat-tab-group>
+
+
 
 </div>

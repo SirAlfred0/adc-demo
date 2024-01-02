@@ -1,19 +1,14 @@
-import { Component, Input, ViewChild } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { ADC_DATE_ADAPTER, ADC_DATE_FORMATTER, ADCIDateAdapter, ADCIDateFormatter, ADCILabels, ADC_LABELS } 
-from '@asadi/angular-date-components/core';
-import { ADCISchedulerEvent }from "@asadi/angular-date-components/scheduler"; 
-import { ADCSchedulerSource } from '@asadi/angular-date-components/scheduler';
-import * as moment from 'jalali-moment';
-import { DateAdapterPersian } from 'src/app/helper/date-adapter-persian';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ADCIDateAdapter, ADCIDateFormatter, ADCILabels, ADC_DATE_ADAPTER, ADC_DATE_FORMATTER, ADC_LABELS } from '@asadi/angular-date-components/core';
+import { ADCIResourceSchedulerResource } from "@asadi/angular-date-components/resource-scheduler";
 import { DateAdapterEnglish } from 'src/app/helper/date-adapter-english';
-import { DateFormatterPersian } from 'src/app/helper/date-formatter-persian';
+import { DateAdapterPersian } from 'src/app/helper/date-adapter-persian';
 import { DateFormatterEnglish } from 'src/app/helper/date-formatter-english';
+import { DateFormatterPersian } from 'src/app/helper/date-formatter-persian';
 import { DependencyHolder } from 'src/app/helper/dependencyHolder';
-import { EventCreateComponent } from '../event-create/event-create.component';
-import { EventsService } from 'src/app/services/events.service';
-import { EventEditComponent } from '../event-edit/event-edit.component';
+import { ADCResourceSchedulerSource } from "@asadi/angular-date-components/resource-scheduler";
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import * as moment from 'jalali-moment';
 
 
 function AdapterResolver(dep: DependencyHolder): ADCIDateAdapter
@@ -51,10 +46,29 @@ function jcLabels(dep: DependencyHolder): ADCILabels
   return dep.language == 'fa' ? fa_labels : en_labels;
 }
 
+const resources: ADCIResourceSchedulerResource[] = [
+  {
+    id: 1,
+    title: 'Room 1'
+  },
+  {
+    id: 2,
+    title: 'Room 2'
+  },
+  {
+    id: 3,
+    title: 'Room 3'
+  },
+  {
+    id: 4,
+    title: 'Room 4'
+  }
+];
+
 @Component({
-  selector: 'app-scheduler',
-  templateUrl: './scheduler.component.html',
-  styleUrls: ['./scheduler.component.css'],
+  selector: 'app-resource-scheduler',
+  templateUrl: './resource-scheduler.component.html',
+  styleUrls: ['./resource-scheduler.component.css'],
   providers: [
     {
       provide: ADC_DATE_ADAPTER,
@@ -73,7 +87,7 @@ function jcLabels(dep: DependencyHolder): ADCILabels
     },
   ]
 })
-export class SchedulerComponent {
+export class ResourceSchedulerComponent implements OnInit {
 
   form: FormGroup = new FormGroup({
     WeekEnd: new FormControl([5,6]),
@@ -83,21 +97,28 @@ export class SchedulerComponent {
     ]),
   });
 
-  @ViewChild(ADCSchedulerSource) adcEventsSource: ADCSchedulerSource = {} as ADCSchedulerSource;
+  @ViewChild(ADCResourceSchedulerSource) resourceSchedulerDataSource = {} as ADCResourceSchedulerSource;
 
-  constructor(
-    private dialog: MatDialog,
-    private eventService: EventsService
-  )
+  constructor()
+  {}
+
+  ngOnInit(): void
   {
+    setTimeout(() => {
+      this.loadResources();
+    });
+  }
 
+  loadResources(): void
+  {
+    this.resourceSchedulerDataSource.resources = resources;
   }
 
   onDateChange(date: any): void
   {
     console.log('Date Change called', date);
 
-    this.loadEvents();
+    //this.loadEvents();
   }
 
   onNext(date: any): void
@@ -119,46 +140,36 @@ export class SchedulerComponent {
   {
     console.log('event clicked: ', event);
 
-    const dialogRef = this.dialog.open(EventEditComponent, {
-      data: {
-        event: event.event
-      }
-    })
+    // const dialogRef = this.dialog.open(EventEditComponent, {
+    //   data: {
+    //     event: event.event
+    //   }
+    // })
 
-    dialogRef.afterClosed().subscribe((isChanged: boolean) => {
-      if(isChanged && isChanged == true)
-      {
-        this.loadEvents();
-      }
-    })
+    // dialogRef.afterClosed().subscribe((isChanged: boolean) => {
+    //   if(isChanged && isChanged == true)
+    //   {
+    //     this.loadEvents();
+    //   }
+    // })
   }
 
   onDateSelect(event: any): void
   {
     console.log('date selected:', event);
-    const dialogRef = this.dialog.open(EventCreateComponent, {
-      data: {
-        startDate: event.start,
-        endDate: event.end
-      }
-    });
+    // const dialogRef = this.dialog.open(EventCreateComponent, {
+    //   data: {
+    //     startDate: event.start,
+    //     endDate: event.end
+    //   }
+    // });
 
-    dialogRef.afterClosed().subscribe((isChanged: boolean) => {
-      if(isChanged && isChanged == true)
-      {
-        this.loadEvents();
-      }
-    })
-  }
-
-  private loadEvents(): void
-  {
-    this.eventService.list().subscribe({
-      next: (res: ADCISchedulerEvent[]) =>
-      {
-        this.adcEventsSource.events = res;
-      },
-    })
+    // dialogRef.afterClosed().subscribe((isChanged: boolean) => {
+    //   if(isChanged && isChanged == true)
+    //   {
+    //     // load events
+    //   }
+    // })
   }
 
   get HolidaysForm(): FormArray<FormControl>

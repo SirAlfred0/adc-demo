@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ADCSchedulerComponent } from "@asadi/angular-date-components/scheduler";
+import { ADCResourceSchedulerComponent } from "@asadi/angular-date-components/resource-scheduler";
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,12 +17,13 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ADCSchedulerComponent } from "@asadi/angular-date-components/scheduler";
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 import { SchedulerComponent } from './components/scheduler/scheduler.component';
 import { EventCreateComponent } from './components/event-create/event-create.component';
 import { EventEditComponent } from './components/event-edit/event-edit.component';
+import { ResourceSchedulerComponent } from './components/resource-scheduler/resource-scheduler.component';
 
 
 @NgModule({
@@ -29,11 +32,13 @@ import { EventEditComponent } from './components/event-edit/event-edit.component
     SchedulerComponent,
     EventCreateComponent,
     EventEditComponent,
+    ResourceSchedulerComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ADCSchedulerComponent,
+    ADCResourceSchedulerComponent,
     ReactiveFormsModule,
 
     MatFormFieldModule,
@@ -46,6 +51,7 @@ import { EventEditComponent } from './components/event-edit/event-edit.component
     MatNativeDateModule,
     MatTooltipModule,
     MatDialogModule,
+    MatTabsModule,
   ],
   providers: [
   ],

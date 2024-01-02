@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ADCIEvent } from '@asadi/angular-date-components/core';
+import { ADCISchedulerEvent } from '@asadi/angular-date-components/scheduler';
 
 
 export class DataService {
 
-  private events: ADCIEvent[] = [
+  private events: ADCISchedulerEvent[] = [
     {
       startDate: '2023-10-03T12:00:00',
       endDate: '2023-10-23T06:00:00',
@@ -125,14 +125,14 @@ export class DataService {
 
   add(data: any): boolean
   {
-    const maxId = this.events.map((e: ADCIEvent) => +e.id).sort((a,b) => a - b).reverse()[0];
+    const maxId = this.events.map((e: ADCISchedulerEvent) => +e.id).sort((a,b) => a - b).reverse()[0];
     data.id = maxId + 1;
     console.log(data);
     this.events.push(data);
     return true;
   }
 
-  update(data: ADCIEvent): boolean
+  update(data: ADCISchedulerEvent): boolean
   {
     const index = this.events.findIndex(e => +e.id == +data.id);
     console.log(index);
@@ -142,7 +142,7 @@ export class DataService {
     return true;
   }
 
-  getList(): ADCIEvent[]
+  getList(): ADCISchedulerEvent[]
   {
     return this.events;
   }

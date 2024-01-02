@@ -1,5 +1,5 @@
 <div class="flex flex-col items-start justify-start gap-2 bg-slate-100 rounded-md shadow-md overflow-hidden px-4 pt-4 my-4">
-    <h3>Scheduler Options (run time changes)</h3>
+    <h3>Resource Scheduler Options (run time changes)</h3>
 
     <form [formGroup]="form"  class="flex flex-row flex-wrap items-start justify-start gap-4">
 
@@ -33,12 +33,11 @@
     </form>
 
 </div>
-<adc-scheduler 
+<adc-resource-scheduler
 (EventClick)="onEventClick($event)"
 (DateSelect)="onDateSelect($event)"
 [Weekends]="weekEnds" [Holidays]="holidays"  
 (DateChange)="onDateChange($event)" 
 (Next)="onNext($event)" 
 (Previous)="onPrevius($event)" 
-(ViewChange)="onViewChange($event)">
-</adc-scheduler>
+(ViewChange)="onViewChange($event)"></adc-resource-scheduler>

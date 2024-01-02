@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { Observable, delay, of } from 'rxjs';
-import { ADCIEvent } from '@asadi/angular-date-components/core';
+import { ADCISchedulerEvent } from '@asadi/angular-date-components/scheduler';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class EventsService {
   }
 
 
-  list(): Observable<ADCIEvent[]>
+  list(): Observable<ADCISchedulerEvent[]>
   {
     return of(this.dataService.getList()).pipe(
       delay(500)
