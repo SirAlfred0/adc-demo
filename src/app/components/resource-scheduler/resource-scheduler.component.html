@@ -34,10 +34,12 @@
 
 </div>
 <adc-resource-scheduler
-(EventClick)="onEventClick($event)"
 (DateSelect)="onDateSelect($event)"
-[Weekends]="weekEnds" [Holidays]="holidays"  
+[Weekends]="weekEnds" [Holidays]="[]"  
 (DateChange)="onDateChange($event)" 
 (Next)="onNext($event)" 
 (Previous)="onPrevius($event)" 
-(ViewChange)="onViewChange($event)"></adc-resource-scheduler>
+(ViewChange)="onViewChange($event)"
+(TableEvent)="onDateSelect($event)"
+(EventClick)="onEventClick($event)"
+></adc-resource-scheduler>

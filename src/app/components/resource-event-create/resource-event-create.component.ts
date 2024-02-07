@@ -1,20 +1,22 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ADCIResourceSchedulerTableEvent } from '@asadi/angular-date-components/resource-scheduler';
 import { EventsService } from 'src/app/services/events.service';
 
 @Component({
-  selector: 'app-event-create',
-  templateUrl: './event-create.component.html',
-  styleUrls: ['./event-create.component.css']
+  selector: 'app-resource-event-create',
+  templateUrl: './resource-event-create.component.html',
+  styleUrls: ['./resource-event-create.component.css']
 })
-export class EventCreateComponent implements OnInit {
+export class ResourceEventCreateComponent {
 
   form: FormGroup = new FormGroup({
     startDate: new FormControl(null, {validators: Validators.compose([Validators.required])}),
     endDate: new FormControl(null, {validators: Validators.compose([Validators.required])}),
     bgColor: new FormControl(null, {validators: Validators.compose([Validators.required])}),
     title: new FormControl(null, {validators: Validators.compose([Validators.required])}),
+    resourceId: new FormControl(null, {validators: Validators.compose([Validators.required])}),
     startTime: new FormControl(null),
     endTime: new FormControl(null),
     allDay: new FormControl(true),
@@ -22,7 +24,7 @@ export class EventCreateComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<EventCreateComponent>,
+    private dialogRef: MatDialogRef<ResourceEventCreateComponent>,
     private eventsService: EventsService,
   ) {}
 
@@ -32,17 +34,13 @@ export class EventCreateComponent implements OnInit {
 
   setFormValues(): void
   {
-    const event = this.data.event;
-    
-    const startDate = event.startDate;
-    const endDate = event.endDate;
-    const startTime = event.startTime
-    const endTime = event.endTime;
+    const event = (this.data.event) as ADCIResourceSchedulerTableEvent;
 
-    this.form.controls['startDate'].setValue(startDate.split('T')[0]);
-    this.form.controls['endDate'].setValue(endDate.split('T')[0]);
-    this.form.controls['startTime'].setValue(startTime);
-    this.form.controls['endTime'].setValue(endTime);
+    this.form.controls['startDate'].setValue(event.startDate.split('T')[0]);
+    this.form.controls['endDate'].setValue(event.endDate.split('T')[0]);
+    this.form.controls['startTime'].setValue(event.startTime);
+    this.form.controls['endTime'].setValue(event.endTime);
+    this.form.controls['resourceId'].setValue(event.resourceId);
   }
 
   get colorValue(): string
@@ -52,7 +50,7 @@ export class EventCreateComponent implements OnInit {
   
   onSubmit(): void
   {
-    this.eventsService.create(this.form.value).subscribe({
+    this.eventsService.createResourceEvent(this.form.value).subscribe({
       next: () => {
         this.dialogRef.close(true);
       }

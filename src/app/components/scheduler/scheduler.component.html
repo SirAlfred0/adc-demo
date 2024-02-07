@@ -35,8 +35,8 @@
 </div>
 <adc-scheduler 
 (EventClick)="onEventClick($event)"
-(DateSelect)="onDateSelect($event)"
-[Weekends]="weekEnds" [Holidays]="holidays"  
+(TableEvent)="onDateSelect($event)"
+[Weekends]="weekEnds" [Holidays]="[]"  
 (DateChange)="onDateChange($event)" 
 (Next)="onNext($event)" 
 (Previous)="onPrevius($event)" 

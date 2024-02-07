@@ -5,7 +5,7 @@ import { ADCIOptions } from "@asadi/angular-date-components/core";
 export class SchedulerOptionsPersian implements ADCIOptions
 {
     private _considerTime: boolean = true;
-    private _direction: 'rtl' | 'ltr' = 'rtl';
+    private _direction: 'rtl' | 'ltr' = 'ltr';
     private _initialView: "month" | "week" | "day" = "month";
 
 

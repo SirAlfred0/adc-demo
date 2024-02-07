@@ -24,6 +24,8 @@ import { SchedulerComponent } from './components/scheduler/scheduler.component';
 import { EventCreateComponent } from './components/event-create/event-create.component';
 import { EventEditComponent } from './components/event-edit/event-edit.component';
 import { ResourceSchedulerComponent } from './components/resource-scheduler/resource-scheduler.component';
+import { ResourceEventCreateComponent } from './components/resource-event-create/resource-event-create.component';
+import { ResourceEventUpdateComponent } from './components/resource-event-update/resource-event-update.component';
 
 
 @NgModule({
@@ -33,6 +35,8 @@ import { ResourceSchedulerComponent } from './components/resource-scheduler/reso
     EventCreateComponent,
     EventEditComponent,
     ResourceSchedulerComponent,
+    ResourceEventCreateComponent,
+    ResourceEventUpdateComponent,
   ],
   imports: [
     BrowserModule,

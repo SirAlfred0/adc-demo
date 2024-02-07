@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { Observable, delay, of } from 'rxjs';
 import { ADCISchedulerEvent } from '@asadi/angular-date-components/scheduler';
+import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource } from '@asadi/angular-date-components/resource-scheduler';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,34 @@ export class EventsService {
   list(): Observable<ADCISchedulerEvent[]>
   {
     return of(this.dataService.getList()).pipe(
+      delay(500)
+    );
+  }
+
+  createResourceEvent(data: any): Observable<boolean>
+  {
+    return of(this.dataService.addResourceScheduler(data)).pipe(
+      delay(500)
+    );
+  }
+
+  updateResourceEvent(data: any): Observable<boolean>
+  {
+    return of(this.dataService.updateResourceScheduler(data)).pipe(
+      delay(500)
+    );
+  }
+
+  listResourceEvents(): Observable<ADCIResourceSchedulerEvent[]>
+  {
+    return of(this.dataService.getListResourceSchedulerEvent()).pipe(
+      delay(500)
+    );
+  }
+
+  listResource(): Observable<ADCIResourceSchedulerResource[]>
+  {
+    return of(this.dataService.getListResourceSchedulerResource()).pipe(
       delay(500)
     );
   }

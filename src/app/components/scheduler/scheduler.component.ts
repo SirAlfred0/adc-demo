@@ -121,7 +121,7 @@ export class SchedulerComponent {
 
     const dialogRef = this.dialog.open(EventEditComponent, {
       data: {
-        event: event.event
+        event: event
       }
     })
 
@@ -138,8 +138,7 @@ export class SchedulerComponent {
     console.log('date selected:', event);
     const dialogRef = this.dialog.open(EventCreateComponent, {
       data: {
-        startDate: event.start,
-        endDate: event.end
+        event: event
       }
     });
 
