@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ADC_DATE_ADAPTER, ADC_DATE_FORMATTER, ADCIDateAdapter, ADCIDateFormatter, ADCILabels, ADC_LABELS } 
@@ -73,7 +73,7 @@ function jcLabels(dep: DependencyHolder): ADCILabels
     },
   ]
 })
-export class SchedulerComponent {
+export class SchedulerComponent implements OnInit {
 
   form: FormGroup = new FormGroup({
     WeekEnd: new FormControl([5,6]),
@@ -92,6 +92,19 @@ export class SchedulerComponent {
   {
 
   }
+
+  ngOnInit(): void {
+    this.HolidaysForm.valueChanges.subscribe(data => {
+      this.holidays = [];
+      data.forEach((item: any) => {
+        const holiday = moment(item).format('YYYY-MM-DD');
+
+        this.holidays.push(holiday);
+      })
+    })
+  }
+
+  holidays: string[] = [];
 
   onDateChange(date: any): void
   {
@@ -163,11 +176,6 @@ export class SchedulerComponent {
   get HolidaysForm(): FormArray<FormControl>
   {
     return this.form.controls['Holidays'] as FormArray<FormControl>;
-  }
-
-  get holidays(): string[]
-  {
-    return this.HolidaysForm.value.map((item) => moment(item).format('YYYY-MM-DD'));
   }
 
   get weekEnds(): number[]

@@ -90,8 +90,19 @@ export class ResourceSchedulerComponent implements OnInit, AfterContentInit {
   )
   {}
 
+  holidays: string[] = [];
+
   ngOnInit(): void
   {
+    this.HolidaysForm.valueChanges.subscribe(data => {
+      this.holidays = [];
+      data.forEach((item: any) => {
+        const holiday = moment(item).format('YYYY-MM-DD');
+
+        this.holidays.push(holiday);
+      })
+    })
+
     this.loadResources();
     this.loadEvents();
   }
@@ -175,11 +186,6 @@ export class ResourceSchedulerComponent implements OnInit, AfterContentInit {
   get HolidaysForm(): FormArray<FormControl>
   {
     return this.form.controls['Holidays'] as FormArray<FormControl>;
-  }
-
-  get holidays(): string[]
-  {
-    return this.HolidaysForm.value.map((item) => moment(item).format('YYYY-MM-DD'));
   }
 
   get weekEnds(): number[]
