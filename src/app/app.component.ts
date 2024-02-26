@@ -26,7 +26,6 @@ export class AppComponent implements OnInit {
     CalendarType: new FormControl(this.depHolder.calendarType),
     Direction: new FormControl(options.direction),
     InitialView: new FormControl(options.initialView),
-    ConsiderTime: new FormControl(options.considerTime),
     Language: new FormControl(this.depHolder.language)
   });
 
@@ -44,7 +43,6 @@ export class AppComponent implements OnInit {
   {
     this.loading = true;
     const formValue = this.form.value;
-    options.considerTime = formValue.ConsiderTime;
     options.direction = formValue.Direction;
     options.initialView = formValue.InitialView;
     this.depHolder.calendarType = formValue.CalendarType;
