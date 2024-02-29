@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource } from '@asadi/angular-date-components/resource-scheduler';
-import { ADCISchedulerEvent } from '@asadi/angular-date-components/scheduler';
+import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource } from '@asadi-m/angular-date-components/resource-scheduler';
+import { ADCISchedulerEvent } from '@asadi-m/angular-date-components/scheduler';
 
 
 export class DataService {

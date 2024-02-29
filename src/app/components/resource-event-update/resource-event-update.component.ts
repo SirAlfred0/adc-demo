@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ADCIResourceSchedulerEvent } from '@asadi/angular-date-components/resource-scheduler';
+import { ADCIResourceSchedulerEvent } from '@asadi-m/angular-date-components/resource-scheduler';
 import * as moment from 'jalali-moment';
 import { EventsService } from 'src/app/services/events.service';
 

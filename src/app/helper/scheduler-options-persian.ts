@@ -1,5 +1,5 @@
 
-import { ADCIOptions } from "@asadi/angular-date-components/core";
+import { ADCIOptions } from "@asadi-m/angular-date-components/core";
 
 
 export class SchedulerOptionsPersian implements ADCIOptions

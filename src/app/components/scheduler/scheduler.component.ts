@@ -2,9 +2,9 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ADC_DATE_ADAPTER, ADC_DATE_FORMATTER, ADCIDateAdapter, ADCIDateFormatter, ADCILabels, ADC_LABELS } 
-from '@asadi/angular-date-components/core';
-import { ADCISchedulerEvent }from "@asadi/angular-date-components/scheduler"; 
-import { ADCSchedulerSource } from '@asadi/angular-date-components/scheduler';
+from '@asadi-m/angular-date-components/core';
+import { ADCISchedulerEvent }from "@asadi-m/angular-date-components/scheduler"; 
+import { ADCSchedulerSource } from '@asadi-m/angular-date-components/scheduler';
 import * as moment from 'jalali-moment';
 import { DateAdapterPersian } from 'src/app/helper/date-adapter-persian';
 import { DateAdapterEnglish } from 'src/app/helper/date-adapter-english';

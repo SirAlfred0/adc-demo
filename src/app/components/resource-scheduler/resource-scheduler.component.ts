@@ -1,12 +1,12 @@
 import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ADCIDateAdapter, ADCIDateFormatter, ADCILabels, ADC_DATE_ADAPTER, ADC_DATE_FORMATTER, ADC_LABELS } from '@asadi/angular-date-components/core';
-import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource, ADCIResourceSchedulerTableEvent } from "@asadi/angular-date-components/resource-scheduler";
+import { ADCIDateAdapter, ADCIDateFormatter, ADCILabels, ADC_DATE_ADAPTER, ADC_DATE_FORMATTER, ADC_LABELS } from '@asadi-m/angular-date-components/core';
+import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource, ADCIResourceSchedulerTableEvent } from "@asadi-m/angular-date-components/resource-scheduler";
 import { DateAdapterEnglish } from 'src/app/helper/date-adapter-english';
 import { DateAdapterPersian } from 'src/app/helper/date-adapter-persian';
 import { DateFormatterEnglish } from 'src/app/helper/date-formatter-english';
 import { DateFormatterPersian } from 'src/app/helper/date-formatter-persian';
 import { DependencyHolder } from 'src/app/helper/dependencyHolder';
-import { ADCResourceSchedulerSource } from "@asadi/angular-date-components/resource-scheduler";
+import { ADCResourceSchedulerSource } from "@asadi-m/angular-date-components/resource-scheduler";
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import * as moment from 'jalali-moment';
 import { MatDialog } from '@angular/material/dialog';
