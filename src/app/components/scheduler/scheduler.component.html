@@ -15,6 +15,15 @@
                 <mat-option [value]="6">Seventh day of week</mat-option>
             </mat-select>
         </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Views</mat-label>
+            <mat-select formControlName="Views" multiple>
+                <mat-option value="month">Month</mat-option>
+                <mat-option value="week">Week</mat-option>
+                <mat-option value="day">Day</mat-option>
+            </mat-select>
+        </mat-form-field>
     
         <ng-container *ngFor="let item of HolidaysForm.controls; let i = index" formArrayName="Holidays">
             <mat-form-field appearance="outline">
@@ -38,7 +47,10 @@
 (TableEvent)="onDateSelect($event)"
 [Weekends]="weekEnds" [Holidays]="holidays"  
 (DateChange)="onDateChange($event)" 
-(Next)="onNext($event)" 
-(Previous)="onPrevius($event)" 
-(ViewChange)="onViewChange($event)">
+(Next)="onNext()" 
+(Previous)="onPrevius()" 
+(ViewChange)="onViewChange($event)"
+[CustomViews]="[customView]"
+[DefaultViews]="Views"
+>
 </adc-scheduler>

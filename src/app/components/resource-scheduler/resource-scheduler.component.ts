@@ -13,6 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ResourceEventCreateComponent } from '../resource-event-create/resource-event-create.component';
 import { EventsService } from 'src/app/services/events.service';
 import { ResourceEventUpdateComponent } from '../resource-event-update/resource-event-update.component';
+import { ADCISchedulerView } from '@asadi-m/angular-date-components/scheduler';
+import { ResourceSchedulerCustomViewComponent } from '../resource-scheduler-custom-view/resource-scheduler-custom-view.component';
 
 
 function AdapterResolver(dep: DependencyHolder): ADCIDateAdapter
@@ -74,12 +76,21 @@ function jcLabels(dep: DependencyHolder): ADCILabels
 })
 export class ResourceSchedulerComponent implements OnInit, AfterContentInit {
 
+
+  customView: ADCISchedulerView = {
+    component: ResourceSchedulerCustomViewComponent,
+    id: 'custom-resource-scheduler-view',
+    name: 'Two Month (custom view)'
+  } 
+
+
   form: FormGroup = new FormGroup({
     WeekEnd: new FormControl([5,6]),
     Holidays: new FormArray<FormControl>([
       new FormControl('2023-10-07'),
       new FormControl('2023-10-08')
     ]),
+    Views: new FormControl(['day', 'week', 'month']),
   });
 
   @ViewChild(ADCResourceSchedulerSource) resourceSchedulerDataSource = {} as ADCResourceSchedulerSource;
@@ -191,6 +202,11 @@ export class ResourceSchedulerComponent implements OnInit, AfterContentInit {
   get weekEnds(): number[]
   {
     return this.form.controls['WeekEnd'].value
+  }
+
+  get Views(): string[]
+  {
+    return this.form.controls['Views'].value;
   }
 
   addNewHoliday(): void

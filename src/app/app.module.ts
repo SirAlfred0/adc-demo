@@ -26,6 +26,9 @@ import { EventEditComponent } from './components/event-edit/event-edit.component
 import { ResourceSchedulerComponent } from './components/resource-scheduler/resource-scheduler.component';
 import { ResourceEventCreateComponent } from './components/resource-event-create/resource-event-create.component';
 import { ResourceEventUpdateComponent } from './components/resource-event-update/resource-event-update.component';
+import { SchedulerCustomViewComponent } from './components/scheduler-custom-view/scheduler-custom-view.component';
+import { ResourceSchedulerCustomViewComponent } from './components/resource-scheduler-custom-view/resource-scheduler-custom-view.component';
+import { ADCHorizontalTableComponent } from '@asadi-m/angular-date-components/core';
 
 
 @NgModule({
@@ -37,12 +40,15 @@ import { ResourceEventUpdateComponent } from './components/resource-event-update
     ResourceSchedulerComponent,
     ResourceEventCreateComponent,
     ResourceEventUpdateComponent,
+    SchedulerCustomViewComponent,
+    ResourceSchedulerCustomViewComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     ADCSchedulerComponent,
     ADCResourceSchedulerComponent,
+    ADCHorizontalTableComponent,
     ReactiveFormsModule,
 
     MatFormFieldModule,

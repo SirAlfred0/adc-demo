@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ADC_DATE_ADAPTER, ADC_DATE_FORMATTER, ADCIDateAdapter, ADCIDateFormatter, ADCILabels, ADC_LABELS } 
 from '@asadi-m/angular-date-components/core';
-import { ADCISchedulerEvent }from "@asadi-m/angular-date-components/scheduler"; 
+import { ADCISchedulerEvent, ADCISchedulerView }from "@asadi-m/angular-date-components/scheduler"; 
 import { ADCSchedulerSource } from '@asadi-m/angular-date-components/scheduler';
 import * as moment from 'jalali-moment';
 import { DateAdapterPersian } from 'src/app/helper/date-adapter-persian';
@@ -14,6 +14,7 @@ import { DependencyHolder } from 'src/app/helper/dependencyHolder';
 import { EventCreateComponent } from '../event-create/event-create.component';
 import { EventsService } from 'src/app/services/events.service';
 import { EventEditComponent } from '../event-edit/event-edit.component';
+import { SchedulerCustomViewComponent } from '../scheduler-custom-view/scheduler-custom-view.component';
 
 
 function AdapterResolver(dep: DependencyHolder): ADCIDateAdapter
@@ -75,12 +76,20 @@ function jcLabels(dep: DependencyHolder): ADCILabels
 })
 export class SchedulerComponent implements OnInit {
 
+
+  customView: ADCISchedulerView = {
+    component: SchedulerCustomViewComponent,
+    id: 'custom-scheduler-view',
+    name: 'Two Month (custom view)'
+  } 
+
   form: FormGroup = new FormGroup({
     WeekEnd: new FormControl([5,6]),
     Holidays: new FormArray<FormControl>([
       new FormControl('2023-10-07'),
       new FormControl('2023-10-08')
     ]),
+    Views: new FormControl(['day', 'week', 'month']),
   });
 
   @ViewChild(ADCSchedulerSource) adcEventsSource: ADCSchedulerSource = {} as ADCSchedulerSource;
@@ -113,14 +122,14 @@ export class SchedulerComponent implements OnInit {
     this.loadEvents();
   }
 
-  onNext(date: any): void
+  onNext(): void
   {
-    console.log('Next called', date);
+    console.log('Next called');
   }
 
-  onPrevius(date: any): void
+  onPrevius(): void
   {
-    console.log('Previous called', date);
+    console.log('Previous called');
   }
 
   onViewChange(view: string): void
@@ -181,6 +190,11 @@ export class SchedulerComponent implements OnInit {
   get weekEnds(): number[]
   {
     return this.form.controls['WeekEnd'].value
+  }
+  
+  get Views(): string[]
+  {
+    return this.form.controls['Views'].value;
   }
 
   addNewHoliday(): void
