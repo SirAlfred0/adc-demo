@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ADCDateSplitter, ADCIDateAdapter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableRow } from '@asadi-m/angular-date-components/core';
-import { ADCISchedulerEvent, ADCISchedulerTableEvent, AdcSchedulerBaseViewComponent } from '@asadi-m/angular-date-components/scheduler';
+import { ADCISchedulerDateRangeSelectEvent, ADCISchedulerEvent, AdcSchedulerBaseViewComponent } from '@asadi-m/angular-date-components/scheduler';
 
 @Component({
   selector: 'app-scheduler-custom-view',
@@ -79,11 +79,7 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent 
 
     if(this.isViewReady == false) return;
 
-    this.events = this.schedulerSource.events.filter((e: ADCISchedulerEvent) => 
-    e.startDate.split('T')[0] >= this.viewStart.split('T')[0] && e.startDate.split('T')[0] <= this.viewEnd.split('T')[0] || 
-    e.endDate.split('T')[0] >= this.viewStart.split('T')[0] && e.endDate.split('T')[0] <= this.viewEnd.split('T')[0] || 
-    e.startDate.split('T')[0] < this.viewStart.split('T')[0] && e.endDate.split('T')[0] > this.viewEnd.split('T')[0]
-    )
+    this.events = this.schedulerSource.getEvents(this.viewStart, this.viewEnd);
 
     this.events.forEach((e: ADCISchedulerEvent) => {
 
@@ -187,7 +183,7 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent 
     var secondMonthDays = this.dateAdapter.getDaysOfMonth(this.year, secondMonth);
     this.viewEnd = this.dateAdapter.transformDate(this.year, secondMonth, secondMonthDays);
 
-    this.schedulerSource.dateChangeEvent.emit({startDate: this.viewStart, endDate: this.viewEnd});
+    this.schedulerSource.onDateRangeChange({startDate: this.viewStart, endDate: this.viewEnd});
   }
 
   dateFilter(cell1: ADCITableCell, cell2: ADCITableCell): boolean
@@ -197,7 +193,7 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent 
 
   onTableCellSelect(event: ADCITableCell[]): void
   {
-    const e: ADCISchedulerTableEvent = 
+    const e: ADCISchedulerDateRangeSelectEvent = 
     {
       endDate: event[1].value.toString(),
       endTime: '00:00',
@@ -205,13 +201,13 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent 
       startTime: '00:00',
     }
     
-    this.schedulerSource.onCellClick(e);
+    this.schedulerSource.onDateRangeSelect(e);
   }
 
   onTableEventClick(event: ADCITableEvent): void
   {
     const e: ADCISchedulerEvent = this.events.filter((item: any) => item.id == event.data.id)[0];
-    this.schedulerSource.onEventClick(e);
+    this.schedulerSource.onEventSelect(e);
   }
 
 }

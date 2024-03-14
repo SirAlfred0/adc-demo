@@ -85,10 +85,7 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
 
     if(this.isViewReady == false) return;
 
-    this.events = this.resourceSchedulerSource.events.filter((e: ADCIResourceSchedulerEvent) => 
-    e.startDate.split('T')[0] >= this.viewStart.split('T')[0] && e.startDate.split('T')[0] <= this.viewEnd.split('T')[0] || 
-    e.endDate.split('T')[0] >= this.viewStart.split('T')[0] && e.endDate.split('T')[0] <= this.viewEnd.split('T')[0] || 
-    e.startDate.split('T')[0] < this.viewStart.split('T')[0] && e.endDate.split('T')[0] > this.viewEnd.split('T')[0])
+    this.events = this.resourceSchedulerSource.getEvents(this.viewStart, this.viewEnd);
 
     this.events.forEach((e: ADCIResourceSchedulerEvent) => {
 
@@ -205,7 +202,7 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
     var secondMonthDays = this.dateAdapter.getDaysOfMonth(this.year, secondMonth);
     this.viewEnd = this.dateAdapter.transformDate(this.year, secondMonth, secondMonthDays);
 
-    this.resourceSchedulerSource.dateChangeEvent.emit({startDate: this.viewStart, endDate: this.viewEnd});
+    this.resourceSchedulerSource.onDateRangeChange({startDate: this.viewStart, endDate: this.viewEnd});
   }
 
   dateFilter(cell1: ADCITableCell, cell2: ADCITableCell): boolean
@@ -224,12 +221,12 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
       resourceId: event[0].rowValue,
     }
     
-    this.resourceSchedulerSource.onCellClick(e);
+    this.resourceSchedulerSource.onDateRangeSelect(e);
   }
 
   onTableEventClick(event: ADCITableEvent): void
   {
     const e: ADCIResourceSchedulerEvent = this.events.filter((item: any) => item.id == event.data.id)[0];
-    this.resourceSchedulerSource.onEventClick(e);
+    this.resourceSchedulerSource.onEventSelect(e);
   }
 }
