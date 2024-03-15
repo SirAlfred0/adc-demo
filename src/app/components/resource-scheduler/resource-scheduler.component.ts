@@ -1,6 +1,6 @@
 import { AfterContentInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ADCIDateAdapter, ADCIDateFormatter, ADCILabels, ADC_DATE_ADAPTER, ADC_DATE_FORMATTER, ADC_LABELS } from '@asadi-m/angular-date-components/core';
-import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource, ADCIResourceSchedulerTableEvent } from "@asadi-m/angular-date-components/resource-scheduler";
+import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerEventSelectEvent, ADCIResourceSchedulerResource, ADCIResourceSchedulerTableEvent } from "@asadi-m/angular-date-components/resource-scheduler";
 import { DateAdapterEnglish } from 'src/app/helper/date-adapter-english';
 import { DateAdapterPersian } from 'src/app/helper/date-adapter-persian';
 import { DateFormatterEnglish } from 'src/app/helper/date-formatter-english';
@@ -142,12 +142,12 @@ export class ResourceSchedulerComponent implements OnInit, AfterContentInit {
     //this.loadEvents();
   }
 
-  onNext(date: any): void
+  onNext(): void
   {
     console.log('Next called');
   }
 
-  onPrevius(date: any): void
+  onPrevius(): void
   {
     console.log('Previous called');
   }
@@ -157,13 +157,13 @@ export class ResourceSchedulerComponent implements OnInit, AfterContentInit {
     console.log('View Changed', view);
   }
 
-  onEventClick(event: ADCIResourceSchedulerEvent): void
+  onEventClick(e: ADCIResourceSchedulerEventSelectEvent): void
   {
-    console.log('event clicked: ', event);
+    console.log('event clicked: ', e.event);
 
     const dialogRef = this.dialog.open(ResourceEventUpdateComponent, {
       data: {
-        event: event,
+        event: e.event,
         roomList: this.resourceSchedulerDataSource.resources
       }
     })

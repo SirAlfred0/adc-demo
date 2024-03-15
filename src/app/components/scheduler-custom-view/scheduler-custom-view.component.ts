@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ADCDateSplitter, ADCIDateAdapter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableRow } from '@asadi-m/angular-date-components/core';
+import { ADCDateSplitter, ADCIDateAdapter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow } from '@asadi-m/angular-date-components/core';
 import { ADCISchedulerDateRangeSelectEvent, ADCISchedulerEvent, AdcSchedulerBaseViewComponent } from '@asadi-m/angular-date-components/scheduler';
 
 @Component({
@@ -93,7 +93,6 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent 
       const endTime = e.endTime == null ? 24 : +e.endTime.toString().split(':')[0];
 
       const cellEvent: ADCITableEvent = {
-        height: 40,
         columnStart: startCellIndex != -1 ? startCell.columnIndex : null,
         columnEnd: endCellIndex != -1 ? endCell.columnIndex : null,
         data: e,
@@ -191,7 +190,7 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent 
     return cell2.value >= cell1.value;
   }
 
-  onTableCellSelect(event: ADCITableCell[]): void
+  onDateRangeSelect(event: ADCITableCell[]): void
   {
     const e: ADCISchedulerDateRangeSelectEvent = 
     {
@@ -204,10 +203,11 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent 
     this.schedulerSource.onDateRangeSelect(e);
   }
 
-  onTableEventClick(event: ADCITableEvent): void
+  onEventSelect(e: ADCITableEventSelectEvent): void
   {
-    const e: ADCISchedulerEvent = this.events.filter((item: any) => item.id == event.data.id)[0];
-    this.schedulerSource.onEventSelect(e);
+    const schedulerEvent: ADCISchedulerEvent = this.events.filter((item: any) => item.id == e.event.data.id)[0];
+
+    this.schedulerSource.onEventSelect({dom: e.dom, jsEvent: e.jsEvent, event: schedulerEvent});
   }
 
 }

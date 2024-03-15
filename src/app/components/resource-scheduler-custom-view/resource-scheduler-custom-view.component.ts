@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ADCDateSplitter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableRow } from '@asadi-m/angular-date-components/core';
+import { ADCDateSplitter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow } from '@asadi-m/angular-date-components/core';
 import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource, ADCIResourceSchedulerTableEvent, AdcResourceSchedulerBaseViewComponent } from '@asadi-m/angular-date-components/resource-scheduler';
 
 @Component({
@@ -100,7 +100,6 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
       const endTime = e.endTime == null ? 24 : +e.endTime.toString().split(':')[0];
 
       const cellEvent: ADCITableEvent = {
-        height: 40,
         columnStart: startCell != null ? startCell.columnIndex : null,
         columnEnd: endCell != null ? endCell.columnIndex : null,
         data: e,
@@ -210,7 +209,7 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
     return cell1.rowIndex == cell2.rowIndex && cell2.value >= cell1.value;
   }
 
-  onTableCellSelect(event: ADCITableCell[]): void
+  onDateRangeSelect(event: ADCITableCell[]): void
   {
     const e: ADCIResourceSchedulerTableEvent = 
     {
@@ -224,9 +223,10 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
     this.resourceSchedulerSource.onDateRangeSelect(e);
   }
 
-  onTableEventClick(event: ADCITableEvent): void
+  onEventSelect(e: ADCITableEventSelectEvent): void
   {
-    const e: ADCIResourceSchedulerEvent = this.events.filter((item: any) => item.id == event.data.id)[0];
-    this.resourceSchedulerSource.onEventSelect(e);
+    const resourceSchedulerEvent: ADCIResourceSchedulerEvent = this.events.filter(item => item.id == e.event.data.id)[0];
+
+    this.resourceSchedulerSource.onEventSelect({dom: e.dom, jsEvent: e.jsEvent, event: resourceSchedulerEvent});
   }
 }

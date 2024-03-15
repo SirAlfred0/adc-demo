@@ -3,7 +3,7 @@ import { FormArray, FormControl, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ADC_DATE_ADAPTER, ADC_DATE_FORMATTER, ADCIDateAdapter, ADCIDateFormatter, ADCILabels, ADC_LABELS } 
 from '@asadi-m/angular-date-components/core';
-import { ADCISchedulerEvent, ADCISchedulerView }from "@asadi-m/angular-date-components/scheduler"; 
+import { ADCISchedulerEvent, ADCISchedulerEventSelectEvent, ADCISchedulerView }from "@asadi-m/angular-date-components/scheduler"; 
 import { ADCSchedulerSource } from '@asadi-m/angular-date-components/scheduler';
 import * as moment from 'jalali-moment';
 import { DateAdapterPersian } from 'src/app/helper/date-adapter-persian';
@@ -137,13 +137,13 @@ export class SchedulerComponent implements OnInit {
     console.log('View Changed', view);
   }
 
-  onEventClick(event: any): void
+  onEventClick(e: ADCISchedulerEventSelectEvent): void
   {
-    console.log('event clicked: ', event);
+    console.log('event clicked: ', e.event);
 
     const dialogRef = this.dialog.open(EventEditComponent, {
       data: {
-        event: event
+        event: e.event
       }
     })
 
