@@ -110,7 +110,6 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent 
     this.cells = [];
     this.rows = [];
     this.columns = [];
-    this.tableEvents = [];
 
     const month = this.dateAdapter.getCurrentMonth();
     const firstMonth = this.month * 2 + 1;

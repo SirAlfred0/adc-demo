@@ -121,7 +121,6 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
     this.cells = [];
     this.rows = [];
     this.columns = [];
-    this.tableEvents = [];
 
     if(this.hasResources == false) return;
 
