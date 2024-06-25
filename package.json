@@ -1,5 +1,5 @@
 {
-  "name": "adc-demo",
+  "name": "jalali-components-test",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-date-components/scheduler": "^0.0.1",
     "@angular/animations": "^16.1.0",
     "@angular/cdk": "^16.2.7",
     "@angular/common": "^16.1.0",
@@ -20,7 +21,7 @@
     "@angular/platform-browser": "^16.1.0",
     "@angular/platform-browser-dynamic": "^16.1.0",
     "@angular/router": "^16.1.0",
-    "@asadi/angular-date-components": "^0.0.8",
+    "@asadi/angular-date-components": "^0.0.7",
     "jalali-moment": "^3.3.11",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
@@ -40,6 +41,6 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.5",
-    "typescript": "^5.5.2"
+    "typescript": "~5.1.3"
   }
 }
