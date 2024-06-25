@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ADCDateSplitter, ADCIDateAdapter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow } from '@asadi-m/angular-date-components/core';
-import { ADCISchedulerDateRangeSelectEvent, ADCISchedulerEvent, AdcSchedulerBaseViewComponent } from '@asadi-m/angular-date-components/scheduler';
+import { ADCDateSplitter, ADCIDateAdapter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow } from '@asadi/angular-date-components/core';
+import { ADCISchedulerDateRangeSelectEvent, ADCISchedulerEvent, AdcSchedulerBaseViewComponent } from '@asadi/angular-date-components/scheduler';
 
 @Component({
   selector: 'app-scheduler-custom-view',

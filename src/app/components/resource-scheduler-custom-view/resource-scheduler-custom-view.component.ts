@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ADCDateSplitter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow } from '@asadi-m/angular-date-components/core';
-import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource, ADCIResourceSchedulerTableEvent, AdcResourceSchedulerBaseViewComponent } from '@asadi-m/angular-date-components/resource-scheduler';
+import { ADCDateSplitter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow } from '@asadi/angular-date-components/core';
+import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource, ADCIResourceSchedulerTableEvent, AdcResourceSchedulerBaseViewComponent } from '@asadi/angular-date-components/resource-scheduler';
 
 @Component({
   selector: 'app-resource-scheduler-custom-view',

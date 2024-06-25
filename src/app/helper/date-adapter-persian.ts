@@ -1,4 +1,4 @@
-import { ADCIDateAdapter } from "@asadi-m/angular-date-components/core";
+import { ADCIDateAdapter } from "@asadi/angular-date-components/core";
 import * as moment from 'jalali-moment';
 
 export class DateAdapterPersian implements ADCIDateAdapter

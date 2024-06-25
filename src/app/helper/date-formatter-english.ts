@@ -1,4 +1,4 @@
-import { ADCIDateFormatter, ADCDateSplitter } from "@asadi-m/angular-date-components/core";
+import { ADCIDateFormatter, ADCDateSplitter } from "@asadi/angular-date-components/core";
 
 export class DateFormatterEnglish implements ADCIDateFormatter
 {

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
 import { Observable, delay, of } from 'rxjs';
-import { ADCISchedulerEvent } from '@asadi-m/angular-date-components/scheduler';
-import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource } from '@asadi-m/angular-date-components/resource-scheduler';
+import { ADCISchedulerEvent } from '@asadi/angular-date-components/scheduler';
+import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource } from '@asadi/angular-date-components/resource-scheduler';
 
 @Injectable({
   providedIn: 'root'

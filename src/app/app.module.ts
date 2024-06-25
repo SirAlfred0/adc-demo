@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ADCSchedulerComponent } from "@asadi-m/angular-date-components/scheduler";
-import { ADCResourceSchedulerComponent } from "@asadi-m/angular-date-components/resource-scheduler";
+import { ADCSchedulerComponent } from "@asadi/angular-date-components/scheduler";
+import { ADCResourceSchedulerComponent } from "@asadi/angular-date-components/resource-scheduler";
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,7 +28,7 @@ import { ResourceEventCreateComponent } from './components/resource-event-create
 import { ResourceEventUpdateComponent } from './components/resource-event-update/resource-event-update.component';
 import { SchedulerCustomViewComponent } from './components/scheduler-custom-view/scheduler-custom-view.component';
 import { ResourceSchedulerCustomViewComponent } from './components/resource-scheduler-custom-view/resource-scheduler-custom-view.component';
-import { ADCTableComponent } from '@asadi-m/angular-date-components/core';
+import { ADCTableComponent } from '@asadi/angular-date-components/core';
 
 
 @NgModule({

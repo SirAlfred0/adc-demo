@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { ADCIResourceSchedulerTableEvent } from '@asadi-m/angular-date-components/resource-scheduler';
+import { ADCIResourceSchedulerTableEvent } from '@asadi/angular-date-components/resource-scheduler';
 import { EventsService } from 'src/app/services/events.service';
 
 @Component({
