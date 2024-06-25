@@ -77,11 +77,11 @@ function jcLabels(dep: DependencyHolder): ADCILabels
 export class ResourceSchedulerComponent implements OnInit, AfterContentInit {
 
 
-  customView: ADCISchedulerView = {
-    component: ResourceSchedulerCustomViewComponent,
-    id: 'custom-resource-scheduler-view',
-    name: 'Two Month (custom view)'
-  } 
+  // customView: ADCISchedulerView = {
+  //   component: ResourceSchedulerCustomViewComponent,
+  //   id: 'custom-resource-scheduler-view',
+  //   name: 'Two Month (custom view)'
+  // }
 
 
   form: FormGroup = new FormGroup({
@@ -118,7 +118,7 @@ export class ResourceSchedulerComponent implements OnInit, AfterContentInit {
     this.loadEvents();
   }
 
-  ngAfterContentInit(): void {    
+  ngAfterContentInit(): void {
   }
 
   loadResources(): void

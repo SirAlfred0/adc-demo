@@ -40,8 +40,8 @@ import { ADCTableComponent } from '@asadi/angular-date-components/core';
     ResourceSchedulerComponent,
     ResourceEventCreateComponent,
     ResourceEventUpdateComponent,
-    SchedulerCustomViewComponent,
-    ResourceSchedulerCustomViewComponent,
+    // SchedulerCustomViewComponent,
+    // ResourceSchedulerCustomViewComponent,
   ],
   imports: [
     BrowserModule,
