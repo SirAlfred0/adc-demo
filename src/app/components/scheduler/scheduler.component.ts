@@ -77,11 +77,11 @@ function jcLabels(dep: DependencyHolder): ADCILabels
 export class SchedulerComponent implements OnInit {
 
 
-  // customView: ADCISchedulerView = {
-  //   component: SchedulerCustomViewComponent,
-  //   id: 'custom-scheduler-view',
-  //   name: 'Two Month (custom view)'
-  // } 
+  customView: ADCISchedulerView = {
+    component: SchedulerCustomViewComponent,
+    id: 'custom-scheduler-view',
+    name: 'Two Month (custom view)'
+  } 
 
   form: FormGroup = new FormGroup({
     WeekEnd: new FormControl([5,6]),

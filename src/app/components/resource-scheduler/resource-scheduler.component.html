@@ -42,6 +42,7 @@
     </form>
 
 </div>
+
 <adc-resource-scheduler
 [Weekends]="weekEnds" [Holidays]="holidays"  
 (DateRangeChange)="onDateChange($event)" 
@@ -51,6 +52,6 @@
 (DateRangeSelect)="onDateSelect($event)"
 (EventSelect)="onEventClick($event)"
 [DefaultViews]="Views"
-
+[CustomViews]="[customView]"
 
 ></adc-resource-scheduler>
