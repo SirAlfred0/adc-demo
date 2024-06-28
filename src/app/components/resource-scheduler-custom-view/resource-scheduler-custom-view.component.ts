@@ -25,16 +25,14 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
 
   title: string = '';
 
-  monthsOfYear: string[] = this.dateAdapter.getMonthsOfYear();
-  daysOfweek: string[] = this.dateAdapter.getDaysOfWeek();
+  monthsOfYear: string[] = this.dateAdapter.getMonthsOfYear();;
+  daysOfweek: string[] = this.staticValues.getDaysOfWeek();
 
   viewStart: string = '';
   viewEnd: string = '';
 
   constructor() {
     super();
-    // this.monthsOfYear = this.dateAdapter.getMonthsOfYear();
-    // this.daysOfweek = this.dateAdapter.getDaysOfWeek();
   }
 
   override nextButtonHandler(): void {
@@ -152,9 +150,11 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
 
             if(rowIndex == 0)
             {
+              const dIndex = this.commonService.getDayIndex(dayIndex);
+
               const column: ADCITableColumn = 
               {
-                label: day,
+                label: this.labels?.daysOfWeek[dIndex] || day,
                 classList: ''.concat(
                   transformedDate.split('T')[0] == this.today ? ' today ' : ' ',
                   this.weekends.includes(dayIndex) || this.holidays.includes(transformedDate.split('T')[0]) ? ' text-holiday ' : ' '
@@ -192,7 +192,11 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
     var firstMonth = this.month * 2 + 1;
     var secondMonth = this.month * 2 + 2;
 
-    this.title = this.year + ' ' + this.monthsOfYear[firstMonth - 1] + '-' + this.monthsOfYear[secondMonth - 1];
+    const firstMonthName = this.monthsOfYear[firstMonth - 1];
+    const secondMonthName = this.monthsOfYear[secondMonth - 1];
+
+    this.title = this.year + ' ' + (this.commonService.getMonthName(firstMonthName) || firstMonthName) 
+    + '-' + (this.commonService.getMonthName(secondMonthName) || secondMonthName);
 
     this.totalWeeksOfMonths = this.dateAdapter.getWeeksOfMonth(this.year, firstMonth).concat(this.dateAdapter.getWeeksOfMonth(this.year, secondMonth));
     
