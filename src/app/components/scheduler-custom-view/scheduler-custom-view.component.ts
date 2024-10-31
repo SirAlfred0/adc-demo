@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { ADCDateSplitter, ADCIDateAdapter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow } from '@asadi/angular-date-components/core';
-import { ADCISchedulerDateRangeSelectEvent, ADCISchedulerEvent, AdcSchedulerBaseViewComponent } from '@asadi/angular-date-components/scheduler';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ADCCommonService, ADCDateSplitter, ADCIDateAdapter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValuesService } from '@asadi/angular-date-components/core';
+import { ADCISchedulerDateRangeSelectEvent, ADCISchedulerEvent, AdcSchedulerBase } from '@asadi/angular-date-components/scheduler';
 
 @Component({
   selector: 'app-scheduler-custom-view',
   templateUrl: './scheduler-custom-view.component.html',
   styleUrls: ['./scheduler-custom-view.component.css']
 })
-export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent {
+export class SchedulerCustomViewComponent extends AdcSchedulerBase implements OnInit, OnDestroy {
 
   private month: number = 0;
   private year: number = 0;
@@ -27,14 +27,25 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent 
   monthsOfYear: string[] = this.dateAdapter.getMonthsOfYear();
   daysOfweek: string[] = this.staticValues.getDaysOfWeek();
 
-
   viewStart: string = '';
   viewEnd: string = '';
 
-  constructor() {
+  weekends: number[] = [];
+  holidays: string[] = [];
+
+  readonly today = this.dateAdapter.today();
+  readonly commonService = new ADCCommonService(this.dateAdapter, this.labels);
+
+  constructor(
+    private staticValues: ADCStaticValuesService,
+  ) {
     super();
   }
 
+  ngOnInit(): void 
+  {
+    super.init();
+  }
 
   override nextButtonHandler(): void {
 
@@ -74,12 +85,12 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent 
     return this.rows.length != 0 && this.columns.length != 0 && this.cells.length != 0;
   }
 
-  override eventChangesHandler(): void {
+  override eventChangesHandler(schedulerEvents: ADCISchedulerEvent[] | null): void {
     this.tableEvents = [];
 
     if(this.isViewReady == false) return;
 
-    this.events = this.schedulerSource.getEvents(this.viewStart, this.viewEnd);
+    this.events = schedulerEvents == null ? this.events : schedulerEvents;
 
     this.events.forEach((e: ADCISchedulerEvent) => {
 
@@ -170,6 +181,18 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent 
     });    
   }
 
+  override weekendsChangesHandler(weekends: number[]): void 
+  {
+    this.weekends = weekends;
+    this.dateChangesHandler();
+  }
+
+  override holidaysChangesHandler(holidays: string[]): void 
+  {
+    this.holidays = holidays;
+    this.dateChangesHandler();
+  }
+
   private calculateCurrentDate(): void
   {
     var firstMonth = this.month * 2 + 1;
@@ -187,7 +210,7 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent 
     var secondMonthDays = this.dateAdapter.getDaysOfMonth(this.year, secondMonth);
     this.viewEnd = this.dateAdapter.transformDate(this.year, secondMonth, secondMonthDays);
 
-    this.schedulerSource.onDateRangeChange({startDate: this.viewStart, endDate: this.viewEnd});
+    super.dateRangeChange({startDate: this.viewStart, endDate: this.viewEnd});
   }
 
   dateFilter(cell1: ADCITableCell, cell2: ADCITableCell): boolean
@@ -205,14 +228,19 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBaseViewComponent 
       startTime: '00:00',
     }
     
-    this.schedulerSource.onDateRangeSelect(e);
+    super.dateRangeSelect(e);
   }
 
   onEventSelect(e: ADCITableEventSelectEvent): void
   {
     const schedulerEvent: ADCISchedulerEvent = this.events.filter((item: any) => item.id == e.event.data.id)[0];
 
-    this.schedulerSource.onEventSelect({dom: e.dom, jsEvent: e.jsEvent, event: schedulerEvent});
+    super.eventSelect({dom: e.dom, jsEvent: e.jsEvent, event: schedulerEvent});
+  }
+
+  ngOnDestroy(): void 
+  {
+    super.destroy();
   }
 
 }
