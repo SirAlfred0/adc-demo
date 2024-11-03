@@ -209,7 +209,7 @@ export class ResourceSchedulerComponent implements OnInit, AfterContentInit {
   {
     console.log('Date Change called', date);
 
-    //this.loadEvents();
+    this.loadEvents();
   }
 
   onNext(): void

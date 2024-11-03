@@ -1,13 +1,13 @@
-import { Component } from '@angular/core';
-import { ADCDateSplitter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow } from '@asadi/angular-date-components/core';
-import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource, ADCIResourceSchedulerTableEvent, AdcResourceSchedulerBaseViewComponent } from '@asadi/angular-date-components/resource-scheduler';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ADCCommonService, ADCDateSplitter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValuesService } from '@asadi/angular-date-components/core';
+import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource, ADCIResourceSchedulerTableEvent, AdcResourceSchedulerBase,  } from '@asadi/angular-date-components/resource-scheduler';
 
 @Component({
   selector: 'app-resource-scheduler-custom-view',
   templateUrl: './resource-scheduler-custom-view.component.html',
   styleUrls: ['./resource-scheduler-custom-view.component.css']
 })
-export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBaseViewComponent {
+export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBase implements OnInit, OnDestroy {
   
   private month: number = 0;
   private year: number = 0;
@@ -31,8 +31,21 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
   viewStart: string = '';
   viewEnd: string = '';
 
-  constructor() {
+  holidays: string[] = [];
+  weekends: number[] = [];
+
+  readonly commonService = new ADCCommonService(this.dateAdapter, this.labels);
+  readonly today: string = this.dateAdapter.today();
+
+  constructor(
+    private staticValues: ADCStaticValuesService
+  ) {
     super();
+  }
+
+  ngOnInit(): void 
+  {
+    super.init();
   }
 
   override nextButtonHandler(): void {
@@ -78,12 +91,12 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
     return this.resources.length != 0;
   }
 
-  override eventChangesHandler(): void {
+  override eventChangesHandler(events: ADCIResourceSchedulerEvent[]): void {
     this.tableEvents = [];
 
     if(this.isViewReady == false) return;
 
-    this.events = this.resourceSchedulerSource.getEvents(this.viewStart, this.viewEnd);
+    this.events = events;
 
     this.events.forEach((e: ADCIResourceSchedulerEvent) => {
 
@@ -111,8 +124,8 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
     });
   }
 
-  override resourceChangesHandler(): void {
-    this.resources = this.resourceSchedulerSource.resources;
+  override resourceChangesHandler(resources: ADCIResourceSchedulerResource[]): void {
+    this.resources = resources;
   }
 
   override dateChangesHandler(): void {
@@ -187,6 +200,18 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
     });
   }
 
+  override holidaysChangesHandler(holidays: string[]): void 
+  {
+    this.holidays = holidays;
+    this.dateChangesHandler();
+  }
+
+  override weekendChangesHandler(weekends: number[]): void 
+  {
+    this.weekends = weekends;
+    this.dateChangesHandler();
+  }
+
   private calculateCurrentDate(): void
   {
     var firstMonth = this.month * 2 + 1;
@@ -204,7 +229,7 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
     var secondMonthDays = this.dateAdapter.getDaysOfMonth(this.year, secondMonth);
     this.viewEnd = this.dateAdapter.transformDate(this.year, secondMonth, secondMonthDays);
 
-    this.resourceSchedulerSource.onDateRangeChange({startDate: this.viewStart, endDate: this.viewEnd});
+    super.dateRangeChange({startDate: this.viewStart, endDate: this.viewEnd});
   }
 
   dateFilter(cell1: ADCITableCell, cell2: ADCITableCell): boolean
@@ -223,13 +248,18 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
       resourceId: event[0].rowValue,
     }
     
-    this.resourceSchedulerSource.onDateRangeSelect(e);
+    super.dateRangeSelect(e);
   }
 
   onEventSelect(e: ADCITableEventSelectEvent): void
   {
     const resourceSchedulerEvent: ADCIResourceSchedulerEvent = this.events.filter(item => item.id == e.event.data.id)[0];
 
-    this.resourceSchedulerSource.onEventSelect({dom: e.dom, jsEvent: e.jsEvent, event: resourceSchedulerEvent});
+    super.eventSelect({dom: e.dom, jsEvent: e.jsEvent, event: resourceSchedulerEvent});
+  }
+
+  ngOnDestroy(): void 
+  {
+    super.destory();
   }
 }

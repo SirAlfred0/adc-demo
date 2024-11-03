@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ADCCommonService, ADCDateSplitter, ADCIDateAdapter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValuesService } from '@asadi/angular-date-components/core';
+import { ADCCommonService, ADCDateSplitter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValuesService } from '@asadi/angular-date-components/core';
 import { ADCISchedulerDateRangeSelectEvent, ADCISchedulerEvent, AdcSchedulerBase } from '@asadi/angular-date-components/scheduler';
 
 @Component({
@@ -85,14 +85,19 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
     return this.rows.length != 0 && this.columns.length != 0 && this.cells.length != 0;
   }
 
-  override eventChangesHandler(schedulerEvents: ADCISchedulerEvent[] | null): void {
+  override eventChangesHandler(schedulerEvents: ADCISchedulerEvent[] | undefined): void {
     this.tableEvents = [];
 
     if(this.isViewReady == false) return;
 
-    this.events = schedulerEvents == null ? this.events : schedulerEvents;
+    if(schedulerEvents !== undefined)
+    {
+      this.events = schedulerEvents;
+    }
 
-    this.events.forEach((e: ADCISchedulerEvent) => {
+    const viewEvents = this.tools.scheduler.getEventsBetweenDateRange(this.viewStart, this.viewEnd, this.events);
+
+    viewEvents.forEach((e: ADCISchedulerEvent) => {
 
       const startCellIndex = this.cells.findIndex((cell: ADCITableCell) => cell.value.toString().split('T')[0] == e.startDate.split('T')[0]);
       const endCellIndex = this.cells.findIndex((cell: ADCITableCell) => cell.value.toString().split('T')[0] == e.endDate.split('T')[0]);
