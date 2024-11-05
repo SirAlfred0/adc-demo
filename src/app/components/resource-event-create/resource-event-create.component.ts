@@ -2,6 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ADCIResourceSchedulerTableEvent } from '@asadi/angular-date-components/resource-scheduler';
+import * as moment from 'jalali-moment';
 import { EventsService } from 'src/app/services/events.service';
 
 @Component({
@@ -50,7 +51,12 @@ export class ResourceEventCreateComponent {
   
   onSubmit(): void
   {
-    this.eventsService.createResourceEvent(this.form.value).subscribe({
+    const command = {...this.form.value};
+
+    command.startDate = moment(command.startDate).format('YYYY-MM-DD');
+    command.endDate = moment(command.endDate).format('YYYY-MM-DD');
+
+    this.eventsService.createResourceEvent(command).subscribe({
       next: () => {
         this.dialogRef.close(true);
       }

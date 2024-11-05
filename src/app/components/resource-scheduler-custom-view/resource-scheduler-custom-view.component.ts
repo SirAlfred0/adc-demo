@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ADCCommonService, ADCDateSplitter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValuesService } from '@asadi/angular-date-components/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ADC_OPTIONS, ADCCommonService, ADCDateSplitter, ADCIOptions, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValuesService } from '@asadi/angular-date-components/core';
 import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource, ADCIResourceSchedulerTableEvent, AdcResourceSchedulerBase,  } from '@asadi/angular-date-components/resource-scheduler';
 
 @Component({
@@ -38,7 +38,8 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
   readonly today: string = this.dateAdapter.today();
 
   constructor(
-    private staticValues: ADCStaticValuesService
+    private staticValues: ADCStaticValuesService,
+    @Inject(ADC_OPTIONS) private options: ADCIOptions
   ) {
     super();
   }
@@ -117,7 +118,8 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
         rowStart: row[0].rowIndex,
         rowEnd: row[0].rowIndex,
         offsetX: startTime / 24,
-        fractionX: e.allDay == true ? 1 : (endTime / 24)
+        fractionX: e.allDay == true ? 1 : (endTime / 24),
+        overlapTolerance: this.options.eventOverlapTolerance / 24
       };
 
       this.tableEvents.push(cellEvent);

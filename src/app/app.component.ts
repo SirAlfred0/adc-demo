@@ -26,7 +26,8 @@ export class AppComponent implements OnInit {
     CalendarType: new FormControl(this.depHolder.calendarType),
     Direction: new FormControl(options.direction),
     InitialView: new FormControl(options.initialView),
-    Language: new FormControl(this.depHolder.language)
+    Language: new FormControl(this.depHolder.language),
+    EventOverlapTolerance: new FormControl(options.eventOverlapTolerance)
   });
 
   constructor(
@@ -45,6 +46,7 @@ export class AppComponent implements OnInit {
     const formValue = this.form.value;
     options.direction = formValue.Direction;
     options.initialView = formValue.InitialView;
+    options.eventOverlapTolerance = formValue.EventOverlapTolerance;
     this.depHolder.calendarType = formValue.CalendarType;
     this.depHolder.language = formValue.Language;
 

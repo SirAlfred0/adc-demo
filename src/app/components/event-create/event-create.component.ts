@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import * as moment from 'jalali-moment';
 import { EventsService } from 'src/app/services/events.service';
 
 @Component({
@@ -52,7 +53,12 @@ export class EventCreateComponent implements OnInit {
   
   onSubmit(): void
   {
-    this.eventsService.create(this.form.value).subscribe({
+    const command = {...this.form.value};
+
+    command.startDate = moment(command.startDate).format('YYYY-MM-DD');
+    command.endDate = moment(command.endDate).format('YYYY-MM-DD');
+
+    this.eventsService.create(command).subscribe({
       next: () => {
         this.dialogRef.close(true);
       }

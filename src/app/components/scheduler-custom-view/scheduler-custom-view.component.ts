@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ADCCommonService, ADCDateSplitter, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValuesService } from '@asadi/angular-date-components/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ADC_OPTIONS, ADCCommonService, ADCDateSplitter, ADCIOptions, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValuesService } from '@asadi/angular-date-components/core';
 import { ADCISchedulerDateRangeSelectEvent, ADCISchedulerEvent, AdcSchedulerBase } from '@asadi/angular-date-components/scheduler';
 
 @Component({
@@ -38,6 +38,7 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
 
   constructor(
     private staticValues: ADCStaticValuesService,
+    @Inject(ADC_OPTIONS) private options: ADCIOptions
   ) {
     super();
   }
@@ -115,7 +116,8 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
         rowStart: startCell.rowIndex,
         rowEnd:  endCell.rowIndex,
         offsetX: startTime / 24,
-        fractionX: e.allDay == true ? 1 : (endTime / 24)
+        fractionX: e.allDay == true ? 1 : (endTime / 24),
+        overlapTolerance: this.options.eventOverlapTolerance / 24
       };
 
       this.tableEvents.push(cellEvent);

@@ -6,6 +6,7 @@ export class SchedulerOptionsPersian implements ADCIOptions
 {
     private _direction: 'rtl' | 'ltr' = 'ltr';
     private _initialView: "month" | "week" | "day" = "month";
+    private _eventOverlapTolerance = 1;
 
 
     get direction(): "ltr" | "rtl" {
@@ -24,5 +25,14 @@ export class SchedulerOptionsPersian implements ADCIOptions
     set initialView(value: "month" | "week" | "day")
     {
         this._initialView = value;
+    }
+
+    get eventOverlapTolerance(): number
+    {
+        return this._eventOverlapTolerance;
+    }
+    set eventOverlapTolerance(v: number)
+    {
+        this._eventOverlapTolerance = v;
     }
 }
