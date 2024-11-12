@@ -5,9 +5,9 @@
 [Columns]="columns"
 [Rows]="rows"
 [DateFilter]="dateFilter"
-
-[Events]="tableEvents"
-
 (DateRangeSelect)="onDateRangeSelect($event)"
-(EventSelect)="onEventSelect($event)"
+[EventBuilder]="builder"
 ></adc-table>
+
+<div flatEventBuilder [Columns]="columns.length" [Rows]="rows.length" [TableEvents]="tableEvents" 
+(OnEventClick)="onEventSelect($event)" #builder="eventBuilder"></div>

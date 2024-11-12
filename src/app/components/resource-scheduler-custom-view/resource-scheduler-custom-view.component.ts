@@ -97,9 +97,14 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
 
     if(this.isViewReady == false) return;
 
-    this.events = events;
+    if(events !== undefined)
+    {
+      this.events = events;
+    }
+  
+    const viewEvents = this.tools.resourceScheduler.getEventsBetweenDateRange(this.viewStart, this.viewEnd, this.events);
 
-    this.events.forEach((e: ADCIResourceSchedulerEvent) => {
+    viewEvents.forEach((e: ADCIResourceSchedulerEvent) => {
 
       const row = this.cells.filter((cell: ADCITableCell) => +cell.rowValue == +e.resourceId);
 
