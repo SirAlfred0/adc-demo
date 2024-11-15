@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ADC_OPTIONS, ADCCommonService, ADCDateSplitter, ADCIOptions, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValuesService } from '@asadi/angular-date-components/core';
+import { ADC_OPTIONS, ADCCommonService, ADCDateSplitter, ADCIOptions, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValues } from '@asadi/angular-date-components/core';
 import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource, ADCIResourceSchedulerTableEvent, AdcResourceSchedulerBase,  } from '@asadi/angular-date-components/resource-scheduler';
 
 @Component({
@@ -26,7 +26,7 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
   title: string = '';
 
   monthsOfYear: string[] = this.dateAdapter.getMonthsOfYear();;
-  daysOfweek: string[] = this.staticValues.getDaysOfWeek();
+  daysOfweek: string[] = ADCStaticValues.getDaysOfWeek();
 
   viewStart: string = '';
   viewEnd: string = '';
@@ -38,7 +38,6 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
   readonly today: string = this.dateAdapter.today();
 
   constructor(
-    private staticValues: ADCStaticValuesService,
     @Inject(ADC_OPTIONS) private options: ADCIOptions
   ) {
     super();
