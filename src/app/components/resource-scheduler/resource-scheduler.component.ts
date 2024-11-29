@@ -161,13 +161,15 @@ export class ResourceSchedulerComponent implements OnInit, AfterContentInit {
       new FormControl('2023-10-08')
     ]),
     Views: new FormControl(['day', 'week', 'month']),
+    StartOf: new FormControl(this.dependencyHolder.startOf)
   });
 
   @ViewChild(ADCResourceSchedulerSource) resourceSchedulerDataSource = {} as ADCResourceSchedulerSource;
 
   constructor(
     private dialog: MatDialog,
-    private eventsService: EventsService
+    private eventsService: EventsService,
+    private dependencyHolder: DependencyHolder
   )
   {}
 
@@ -277,6 +279,11 @@ export class ResourceSchedulerComponent implements OnInit, AfterContentInit {
   get Views(): string[]
   {
     return this.form.controls['Views'].value;
+  }
+
+  get startOf(): string
+  {
+    return this.form.controls['StartOf'].value;
   }
 
   addNewHoliday(): void

@@ -160,13 +160,15 @@ export class SchedulerComponent implements OnInit {
       new FormControl('2023-10-08')
     ]),
     Views: new FormControl(['day', 'week', 'month']),
+    StartOf: new FormControl(this.dependencyHolder.startOf)
   });
 
   @ViewChild(ADCSchedulerSource) adcEventsSource: ADCSchedulerSource = {} as ADCSchedulerSource;
 
   constructor(
     private dialog: MatDialog,
-    private eventService: EventsService
+    private eventService: EventsService,
+    private dependencyHolder: DependencyHolder
   )
   {
 
@@ -265,6 +267,11 @@ export class SchedulerComponent implements OnInit {
   get Views(): string[]
   {
     return this.form.controls['Views'].value;
+  }
+
+  get startOf(): string
+  {
+    return this.form.controls['StartOf'].value;
   }
 
   addNewHoliday(): void
