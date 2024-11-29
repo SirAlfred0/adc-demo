@@ -47,6 +47,23 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
     super.init();
   }
 
+  override initViewHanlder(): void 
+  {
+    if(this.startOf == null)
+    {
+      this.todayButtonHandler();
+    }
+    else
+    {
+      this.year = this.dateAdapter.getYearOf(this.startOf);
+      const m = this.dateAdapter.getMonthOf(this.startOf);
+  
+      this.month = m % 2 == 0 ? ((m - 2) / 2) : ((m - 1) / 2);
+  
+      this.calculateCurrentDate();
+    }
+  }
+
   override nextButtonHandler(): void {
 
     this.month++;
@@ -190,13 +207,11 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
   override weekendsChangesHandler(weekends: number[]): void 
   {
     this.weekends = weekends;
-    this.dateChangesHandler();
   }
 
   override holidaysChangesHandler(holidays: string[]): void 
   {
     this.holidays = holidays;
-    this.dateChangesHandler();
   }
 
   private calculateCurrentDate(): void
@@ -210,7 +225,7 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
     this.title = this.year + ' ' + (this.commonService.getMonthName(firstMonthName) || firstMonthName) 
     + '-' + (this.commonService.getMonthName(secondMonthName) || secondMonthName) ;
 
-    this.totalWeeksOfMonths = this.dateAdapter.getWeeksOfMonth(this.year, firstMonth).concat(this.dateAdapter.getWeeksOfMonth(this.year, secondMonth));
+    this.totalWeeksOfMonths = [...new Set(this.dateAdapter.getWeeksOfMonth(this.year, firstMonth).concat(this.dateAdapter.getWeeksOfMonth(this.year, secondMonth)))];
     
     this.viewStart = this.dateAdapter.transformDate(this.year, firstMonth, 1);
     var secondMonthDays = this.dateAdapter.getDaysOfMonth(this.year, secondMonth);
