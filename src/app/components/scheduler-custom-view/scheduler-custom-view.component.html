@@ -1,15 +1,15 @@
 <adc-table
-[ShowRowLabels]="false"
-[Title]="title"
+[showRowLabels]="false"
+[title]="title"
 
-[Cells]="cells"
-[Columns]="columns"
-[Rows]="rows"
-[DateFilter]="dateFilter"
+[cells]="cells"
+[columns]="columns"
+[rows]="rows"
+[dateFilter]="dateFilter"
 
-(DateRangeSelect)="onDateRangeSelect($event)"
-[EventBuilder]="builder"
+(dateRangeSelect)="onDateRangeSelect($event)"
+[eventBuilder]="builder"
 ></adc-table>
 
-<div flatEventBuilder [Columns]="columns.length" [Rows]="rows.length" [TableEvents]="tableEvents" 
-(OnEventClick)="onEventSelect($event)" #builder="eventBuilder"></div>
+<div flatEventBuilder [columns]="columns.length" [rows]="rows.length" [tableEvents]="tableEvents" 
+(onEventClick)="onEventSelect($event)" #builder="eventBuilder"></div>
