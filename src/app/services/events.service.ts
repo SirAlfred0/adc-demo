@@ -30,7 +30,7 @@ export class EventsService {
 
   list(): Observable<ADCISchedulerEvent[]>
   {
-    return of(this.dataService.getList()).pipe(
+    return of([...this.dataService.getList()]).pipe(
       delay(500)
     );
   }
@@ -51,14 +51,14 @@ export class EventsService {
 
   listResourceEvents(): Observable<ADCIResourceSchedulerEvent[]>
   {
-    return of(this.dataService.getListResourceSchedulerEvent()).pipe(
+    return of([...this.dataService.getListResourceSchedulerEvent()]).pipe(
       delay(500)
     );
   }
 
   listResource(): Observable<ADCIResourceSchedulerResource[]>
   {
-    return of(this.dataService.getListResourceSchedulerResource()).pipe(
+    return of([...this.dataService.getListResourceSchedulerResource()]).pipe(
       delay(500)
     );
   }

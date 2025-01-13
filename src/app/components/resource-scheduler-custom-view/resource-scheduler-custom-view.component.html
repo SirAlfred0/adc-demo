@@ -1,13 +1,17 @@
-<adc-table
-[title]="title"
 
-[cells]="cells"
-[columns]="columns"
-[rows]="rows"
-[dateFilter]="dateFilter"
-(dateRangeSelect)="onDateRangeSelect($event)"
-[eventBuilder]="builder"
-></adc-table>
+
+    <adc-table
+    [title]="title"
+    *ngIf="resources.length != 0"
+    [cells]="cells"
+    [columns]="columns"
+    [rows]="rows"
+    [dateFilter]="dateFilter"
+    (dateRangeSelect)="onDateRangeSelect($event)"
+    [eventBuilder]="builder"
+    ></adc-table>
+
+
 
 <div flatEventBuilder [columns]="columns.length" [rows]="rows.length" [tableEvents]="tableEvents" 
 (onEventClick)="onEventSelect($event)" #builder="eventBuilder"></div>

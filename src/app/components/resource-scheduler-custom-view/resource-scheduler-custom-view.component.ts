@@ -98,25 +98,10 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
     this.calculateCurrentDate();
   }
 
-  get isViewReady(): boolean
-  {
-    return this.rows.length != 0 && this.columns.length != 0 && this.cells.length != 0;
-  }
-  
-  get hasResources(): boolean
-  {
-    return this.resources.length != 0;
-  }
-
   override eventChangesHandler(events: ADCIResourceSchedulerEvent[]): void {
     this.tableEvents = [];
 
-    if(this.isViewReady == false) return;
-
-    if(events !== undefined)
-    {
-      this.events = events;
-    }
+    this.events = events;
   
     const viewEvents = this.tools.resourceScheduler.getEventsBetweenDateRange(this.viewStart, this.viewEnd, this.events);
 
@@ -149,14 +134,15 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
 
   override resourceChangesHandler(resources: ADCIResourceSchedulerResource[]): void {
     this.resources = resources;
+    this.dateChangesHandler();
   }
 
-  override dateChangesHandler(): void {
+  dateChangesHandler(): void {
     this.cells = [];
     this.rows = [];
     this.columns = [];
 
-    if(this.hasResources == false) return;
+    if(this.resources.length == 0) return;
 
     const firstMonth = this.month * 2 + 1;
     const secondMonth = this.month * 2 + 2;
@@ -221,16 +207,20 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
         });
       });
     });
+
+    super.markViewAsReady();
   }
 
   override holidaysChangesHandler(holidays: string[]): void 
   {
     this.holidays = holidays;
+    this.dateChangesHandler();
   }
 
   override weekendChangesHandler(weekends: number[]): void 
   {
     this.weekends = weekends;
+    this.dateChangesHandler();
   }
 
   private calculateCurrentDate(): void
@@ -250,6 +240,7 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
     var secondMonthDays = this.dateAdapter.getDaysOfMonth(this.year, secondMonth);
     this.viewEnd = this.dateAdapter.transformDate(this.year, secondMonth, secondMonthDays);
 
+    this.dateChangesHandler();
     super.dateRangeChange({startDate: this.viewStart, endDate: this.viewEnd});
   }
 

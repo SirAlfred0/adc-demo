@@ -97,21 +97,16 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
     this.calculateCurrentDate();
   }
 
-  get isViewReady(): boolean
-  {
-    return this.rows.length != 0 && this.columns.length != 0 && this.cells.length != 0;
-  }
+  // get isViewReady(): boolean
+  // {
+  //   return this.rows.length != 0 && this.columns.length != 0 && this.cells.length != 0;
+  // }
 
-  override eventChangesHandler(schedulerEvents: ADCISchedulerEvent[] | undefined): void {
+  override eventChangesHandler(schedulerEvents: ADCISchedulerEvent[]): void {
     this.tableEvents = [];
 
-    if(this.isViewReady == false) return;
-
-    if(schedulerEvents !== undefined)
-    {
-      this.events = schedulerEvents;
-    }
-
+    this.events = schedulerEvents;
+    
     const viewEvents = this.tools.scheduler.getEventsBetweenDateRange(this.viewStart, this.viewEnd, this.events);
 
     viewEvents.forEach((e: ADCISchedulerEvent) => {
@@ -140,7 +135,7 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
     });
   }
 
-  override dateChangesHandler(): void {
+  dateChangesHandler(): void {
     this.cells = [];
     this.rows = [];
     this.columns = [];
@@ -201,17 +196,21 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
           this.cells.push(tableCell);
 
         });
-    });    
+    });   
+    
+    this.markViewAsReady();
   }
 
   override weekendsChangesHandler(weekends: number[]): void 
   {
     this.weekends = weekends;
+    this.dateChangesHandler();
   }
 
   override holidaysChangesHandler(holidays: string[]): void 
   {
     this.holidays = holidays;
+    this.dateChangesHandler();
   }
 
   private calculateCurrentDate(): void
@@ -231,6 +230,7 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
     var secondMonthDays = this.dateAdapter.getDaysOfMonth(this.year, secondMonth);
     this.viewEnd = this.dateAdapter.transformDate(this.year, secondMonth, secondMonthDays);
 
+    this.dateChangesHandler();
     super.dateRangeChange({startDate: this.viewStart, endDate: this.viewEnd});
   }
 
