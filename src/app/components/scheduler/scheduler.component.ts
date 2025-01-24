@@ -166,6 +166,8 @@ export class SchedulerComponent implements OnInit {
     DisableNext: new FormControl(false),
   });
 
+  isViewLoadedOnce = false;
+
   @ViewChild(ADCSchedulerSource) adcEventsSource: ADCSchedulerSource = {} as ADCSchedulerSource;
 
   constructor(
@@ -252,7 +254,10 @@ export class SchedulerComponent implements OnInit {
     this.eventService.list().subscribe({
       next: (res: ADCISchedulerEvent[]) =>
       {
+        if(this.isViewLoadedOnce) return;
+
         this.adcEventsSource.events = res;
+        this.isViewLoadedOnce = true;
       },
     })
   }
