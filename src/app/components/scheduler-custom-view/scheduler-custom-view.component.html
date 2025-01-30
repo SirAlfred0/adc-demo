@@ -9,7 +9,7 @@
 
 (dateRangeSelect)="onDateRangeSelect($event)"
 [eventBuilder]="builder"
+[tableEvents]="tableEvents"
 ></adc-table>
 
-<div flatEventBuilder [columns]="columns.length" [rows]="rows.length" [tableEvents]="tableEvents" 
-(onEventClick)="onEventSelect($event)" #builder="eventBuilder"></div>
+<div flatEventBuilder [columns]="columns.length" [rows]="rows.length" #builder="eventBuilder"></div>

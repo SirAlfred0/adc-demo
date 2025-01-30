@@ -1,13 +1,19 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ADC_OPTIONS, ADCCommonService, ADCDateSplitter, ADCIOptions, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValues } from '@asadi/angular-date-components/core';
+import { Component, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ADC_OPTIONS, ADC_TABLE_BRIDGE, ADCCommonService, ADCDateSplitter, ADCIOptions, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValues } from '@asadi/angular-date-components/core';
 import { ADCISchedulerDateRangeSelectEvent, ADCISchedulerEvent, AdcSchedulerBase } from '@asadi/angular-date-components/scheduler';
 
 @Component({
   selector: 'app-scheduler-custom-view',
   templateUrl: './scheduler-custom-view.component.html',
-  styleUrls: ['./scheduler-custom-view.component.css']
+  styleUrls: ['./scheduler-custom-view.component.css'],
+  providers: [
+    {
+      provide: ADC_TABLE_BRIDGE,
+      useExisting: forwardRef(() => SchedulerCustomViewComponent)
+    }
+  ]
 })
-export class SchedulerCustomViewComponent extends AdcSchedulerBase implements OnInit, OnDestroy {
+export class SchedulerCustomViewComponent extends AdcSchedulerBase implements OnInit, OnDestroy{ 
 
   private month: number = 0;
   private year: number = 0;
@@ -252,11 +258,12 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
     super.dateRangeSelect(e);
   }
 
-  onEventSelect(e: ADCITableEventSelectEvent): void
-  {
-    const schedulerEvent: ADCISchedulerEvent = this.events.filter((item: any) => item.id == e.event.data.id)[0];
 
-    super.eventSelect({dom: e.dom, jsEvent: e.jsEvent, event: schedulerEvent});
+  override onEventClick(event: ADCITableEvent, dom: HTMLElement, jsEvent: MouseEvent): void 
+  {
+    const schedulerEvent: ADCISchedulerEvent = this.events.filter((item: any) => item.id == event.data.id)[0];
+
+    super.eventClick({dom: dom, jsEvent: jsEvent, event: schedulerEvent});
   }
 
   ngOnDestroy(): void 

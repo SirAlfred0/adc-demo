@@ -65,7 +65,7 @@
         </form>
     </div>
 
-    <mat-tab-group>
+    <mat-tab-group #tabGroup>
         <mat-tab label="scheduler">
             <ng-container *ngIf="loading == false">
                 <app-scheduler></app-scheduler>

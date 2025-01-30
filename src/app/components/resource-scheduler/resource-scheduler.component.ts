@@ -144,8 +144,7 @@ function jcLabels(dep: DependencyHolder): ADCILabels
     },
   ]
 })
-export class ResourceSchedulerComponent implements OnInit, AfterContentInit {
-
+export class ResourceSchedulerComponent implements OnInit, AfterContentInit{ 
 
   customView: ADCISchedulerView = {
     component: ResourceSchedulerCustomViewComponent,

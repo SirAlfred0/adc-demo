@@ -1,13 +1,19 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ADC_OPTIONS, ADCCommonService, ADCDateSplitter, ADCIOptions, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValues } from '@asadi/angular-date-components/core';
+import { Component, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ADC_OPTIONS, ADCCommonService, ADCDateSplitter, ADCIOptions, ADCITableCell, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValues, ADC_TABLE_BRIDGE } from '@asadi/angular-date-components/core';
 import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource, ADCIResourceSchedulerTableEvent, AdcResourceSchedulerBase,  } from '@asadi/angular-date-components/resource-scheduler';
 
 @Component({
   selector: 'app-resource-scheduler-custom-view',
   templateUrl: './resource-scheduler-custom-view.component.html',
-  styleUrls: ['./resource-scheduler-custom-view.component.css']
+  styleUrls: ['./resource-scheduler-custom-view.component.css'],
+  providers: [
+    {
+      provide: ADC_TABLE_BRIDGE,
+      useExisting: forwardRef(() => ResourceSchedulerCustomViewComponent)
+    }
+  ]
 })
-export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBase implements OnInit, OnDestroy {
+export class ResourceSchedulerCustomViewComponent  extends AdcResourceSchedulerBase implements OnInit, OnDestroy{ 
   
   private month: number = 0;
   private year: number = 0;
@@ -263,11 +269,11 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
     super.dateRangeSelect(e);
   }
 
-  onEventSelect(e: ADCITableEventSelectEvent): void
+  override onEventClick(event: ADCITableEvent, dom: HTMLElement, jsEvent: MouseEvent): void 
   {
-    const resourceSchedulerEvent: ADCIResourceSchedulerEvent = this.events.filter(item => item.id == e.event.data.id)[0];
+    const resourceSchedulerEvent: ADCIResourceSchedulerEvent = this.events.filter(item => item.id == event.data.id)[0];
 
-    super.eventSelect({dom: e.dom, jsEvent: e.jsEvent, event: resourceSchedulerEvent});
+    super.eventClick({dom: dom, jsEvent: jsEvent, event: resourceSchedulerEvent});
   }
 
   ngOnDestroy(): void 
