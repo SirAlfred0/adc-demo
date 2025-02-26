@@ -22,7 +22,8 @@ export class ResourceEventUpdateComponent {
     endTime: new FormControl(null),
     allDay: new FormControl(true),
     id: new FormControl(null),
-    
+    tooltip: new FormControl(null),
+    isClickable: new FormControl(true),
   });
 
   constructor(
@@ -44,11 +45,13 @@ export class ResourceEventUpdateComponent {
       endDate: event.endDate.split('T')[0],
       bgColor: event.bgColor,
       title: event.title,
-      startTime: event.startTime?.substring(0,5),
-      endTime:  event.endTime?.substring(0,5),
+      startTime: event.startTime?.substring(0,5) ?? null,
+      endTime:  event.endTime?.substring(0,5) ?? null,
       allDay: event.allDay === true ? true : false,
       id: event.id,
-      resourceId: event.resourceId
+      resourceId: event.resourceId,
+      tooltip: event.tooltip,
+      isClickable: event.isClickable,
     })
 
   }

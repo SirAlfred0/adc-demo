@@ -54,6 +54,13 @@
             
         </div>
 
+        <div class="flex flex-row items-start justify-stretch gap-4">
+            <mat-form-field appearance="outline" class="w-full">
+                <mat-label>tooltip</mat-label>
+                <input matInput placeholder="tooltip" formControlName="tooltip">
+            </mat-form-field>
+        </div>
+
         <div class="flex flex-col items-start justify-start gap-1">
             <button type="button" color="primary" mat-button (click)="color.click()">Color?</button>
             <input type="color" style="visibility: hidden;width: 0;height: 0;" #color formControlName="bgColor">
@@ -64,6 +71,10 @@
 
         <div class="flex flex-row items-start justify-start gap-4">
             <mat-checkbox color="accent" formControlName="allDay">All Day Event?</mat-checkbox>
+        </div>
+
+        <div class="flex flex-row items-start justify-start gap-4">
+            <mat-checkbox color="accent" formControlName="isClickable">is clickable ?</mat-checkbox>
         </div>
 
     </form>

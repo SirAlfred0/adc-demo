@@ -7,114 +7,15 @@ export class DataService {
 
   private events: ADCISchedulerEvent[] = [
     {
-      startDate: '2023-10-03T12:00:00',
-      endDate: '2023-10-23T06:00:00',
-      bgColor: 'red',
-      title: 'ترم والد',
       id: '1',
-      startTime: '12:00:00',
-      endTime: '06:15:00'
-    },
-    {
-      startDate: '2023-10-03T12:00:00',
-      endDate: '2023-10-23T06:00:00',
-      bgColor: 'violet',
-      title: 'ترم والد',
-      id: '11',
-      startTime: '12:00:00',
-      endTime: '06:15:00'
-    },
-    {
-      startDate: '2023-10-03T12:00:00',
-      endDate: '2023-10-23T06:00:00',
-      bgColor: 'black',
-      title: 'ترم والد',
-      id: '12',
-      startTime: '12:00:00',
-      endTime: '06:15:00'
-    },
-    {
-      startDate: '2023-10-07T00:00:00',
-      endDate: '2023-10-13T12:00:00',
-      bgColor: 'blue',
-      title: 'زیر ترم',
-      id: '2',
-      startTime: '00:00:00',
-      endTime: '12:00:00'
-    },
-    {
-      startDate: '2023-10-07',
-      endDate: '2023-10-10',
-      bgColor: 'green',
-      title: 'رویداد زیر ترم',
-      id: '3',
-    },
-    {
-      startDate: '2023-10-09',
-      endDate: '2023-10-13T12:00:00',
-      bgColor: 'purple',
-      title: 'رویداد دوم زیر ترم',
-      id: '4',
-      endTime: '12:00:00'
-    },
-    {
-      startDate: '2023-10-09T06:00:00',
-      endDate: '2023-10-13',
-      bgColor: 'pink',
-      title: 'رویداد سوم زیر ترم',
-      id: '94',
-      startTime: '06:00:00',
-    },
-    {
-      endDate: '2025-01-19',
-      startDate: '2025-01-19',
-      bgColor: 'green',
-      title: 'تست یک روز از 45 تا 15',
-      id: '95',
-      startTime: '12:45:00',
-      endTime: '18:15:00',
-      allDay: false
-    },
-    {
-      endDate: '2025-01-20',
-      startDate: '2025-01-20',
-      bgColor: 'green',
-      title: 'تست یک روز از 45 تا 15',
-      id: '96',
-      startTime: '12:45:00',
-      endTime: '18:15:00',
-      allDay: false
-    },
-    {
-      endDate: '2025-01-21',
-      startDate: '2025-01-21',
-      bgColor: 'green',
-      title: 'تست یک روز از 45 تا 15',
-      id: '97',
-      startTime: '12:45:00',
-      endTime: '18:15:00',
-      allDay: false
-    },
-    {
-      endDate: '2025-01-22',
-      startDate: '2025-01-22',
-      bgColor: 'green',
-      title: 'تست یک روز از 45 تا 15',
-      id: '98',
-      startTime: '12:45:00',
-      endTime: '18:15:00',
-      allDay: false
-    },
-    {
-      endDate: '2025-01-23',
-      startDate: '2025-01-23',
-      bgColor: 'green',
-      title: 'تست یک روز از 45 تا 15',
-      id: '99',
-      startTime: '12:45:00',
-      endTime: '18:15:00',
-      allDay: false
-    },
+      bgColor: '#f00',
+      endDate: '2025-02-15',
+      startDate: '2025-02-10',
+      title: 'hello',
+      allDay: true,
+      isClickable: true,
+      tooltip: 'this is a long tooltip test, full on non-sense text just for testing',
+    }
   ];
 
   private resources: ADCIResourceSchedulerResource[] = [
@@ -136,25 +37,13 @@ export class DataService {
     }
   ];
   
-  private resourceEvents: ADCIResourceSchedulerEvent[] = [
-    {
-      bgColor: 'purple',
-      endDate: '2025-01-08',
-      startDate: '2025-01-08',
-      resourceId: 3,
-      id: 10,
-      title: 'test event',
-      startTime: '09:00:00',
-      endTime: '21:00:00',
-      allDay: true,
-    },
-  ];
+  private resourceEvents: ADCIResourceSchedulerEvent[] = [];
 
   constructor() { }
 
   add(data: any): boolean
   {
-    const maxId = this.events.map((e: ADCISchedulerEvent) => +e.id).sort((a,b) => a - b).reverse()[0];
+    const maxId = this.events.map((e: ADCISchedulerEvent) => +e.id).sort((a,b) => a - b).reverse()[0] ?? 0;
     data.id = maxId + 1;
 
     this.events.push(data);
@@ -178,7 +67,7 @@ export class DataService {
 
   addResourceScheduler(data: any): boolean
   {
-    const maxId = this.resourceEvents.map((e: ADCIResourceSchedulerEvent) => +e.id).sort((a,b) => a - b).reverse()[0];
+    const maxId = this.resourceEvents.map((e: ADCIResourceSchedulerEvent) => +e.id).sort((a,b) => a - b).reverse()[0] ?? 0;
     data.id = maxId + 1;
 
     this.resourceEvents.push(data);

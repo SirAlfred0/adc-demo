@@ -18,7 +18,9 @@ export class EventCreateComponent implements OnInit {
     title: new FormControl(null, {validators: Validators.compose([Validators.required])}),
     startTime: new FormControl(null),
     endTime: new FormControl(null),
+    tooltip: new FormControl(null),
     allDay: new FormControl(true),
+    isClickable: new FormControl(true),
   });
 
   constructor(

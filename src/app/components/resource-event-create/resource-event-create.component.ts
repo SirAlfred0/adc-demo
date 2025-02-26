@@ -21,6 +21,8 @@ export class ResourceEventCreateComponent {
     startTime: new FormControl(null),
     endTime: new FormControl(null),
     allDay: new FormControl(true),
+    tooltip: new FormControl(null),
+    isClickable: new FormControl(true),
   });
 
   constructor(
