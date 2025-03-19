@@ -70,15 +70,15 @@ export class DateAdapterPersian implements ADCIDateAdapter
     }
 
     getCurrentMonth(): number {
-        return moment().locale('fa').month() + 1;
+        return moment().locale('fa').jMonth() + 1;
     }
 
-    getCurrentYear(): number {
-        return moment().locale('fa').year();
+    getCurrentYear(): number {        
+        return moment().locale('fa').jYear();
     }
 
     getCurrentWeek(): number {
-        return moment().locale('fa').week();
+        return moment().locale('fa').jWeek();
     }
 
     getWeeksOfYear(year: number): number {
