@@ -1,17 +1,11 @@
 import { Component, forwardRef, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ADC_OPTIONS, ADCCommonService, ADCDateSplitter, ADCIOptions, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValues, ADC_TABLE_BRIDGE } from '@asadi/angular-date-components/core';
+import { ADC_OPTIONS, ADCCommonService, ADCDateSplitter, ADCIOptions, ADCITableColumn, ADCITableEvent, ADCITableEventSelectEvent, ADCITableRow, ADCStaticValues } from '@asadi/angular-date-components/core';
 import { ADCIResourceSchedulerEvent, ADCIResourceSchedulerResource, ADCIResourceSchedulerTableEvent, AdcResourceSchedulerBase,  } from '@asadi/angular-date-components/resource-scheduler';
 
 @Component({
   selector: 'app-resource-scheduler-custom-view',
   templateUrl: './resource-scheduler-custom-view.component.html',
-  styleUrls: ['./resource-scheduler-custom-view.component.css'],
-  providers: [
-    {
-      provide: ADC_TABLE_BRIDGE,
-      useExisting: forwardRef(() => ResourceSchedulerCustomViewComponent)
-    }
-  ]
+  styleUrls: ['./resource-scheduler-custom-view.component.css']
 })
 export class ResourceSchedulerCustomViewComponent{
   

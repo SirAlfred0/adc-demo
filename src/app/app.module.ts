@@ -28,7 +28,7 @@ import { ResourceEventCreateComponent } from './components/resource-event-create
 import { ResourceEventUpdateComponent } from './components/resource-event-update/resource-event-update.component';
 import { SchedulerCustomViewComponent } from './components/scheduler-custom-view/scheduler-custom-view.component';
 import { ResourceSchedulerCustomViewComponent } from './components/resource-scheduler-custom-view/resource-scheduler-custom-view.component';
-import { ADCTableComponent, FlatEventBuilderDirective } from '@asadi/angular-date-components/core';
+import { ADCTableComponent } from '@asadi/angular-date-components/core';
 import { MatDividerModule} from '@angular/material/divider';
 
 
@@ -51,8 +51,6 @@ import { MatDividerModule} from '@angular/material/divider';
     ADCResourceSchedulerComponent,
     ADCTableComponent,
     ReactiveFormsModule,
-    FlatEventBuilderDirective,
-
     MatFormFieldModule,
     MatButtonModule,
     MatIconModule,
