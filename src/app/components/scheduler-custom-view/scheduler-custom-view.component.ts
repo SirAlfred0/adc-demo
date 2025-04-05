@@ -45,6 +45,8 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
     super.init();
 
     this.selectionManager.cellSelectionStream.subscribe(event => this.onDateRangeSelect(event.start, event.end));
+
+    this.eventBuilder.eventSelectionStream.subscribe(e => this.onEventClick(e.event, e.dom, e.jsEvent));
   }
 
   override initViewHanlder(): void 
