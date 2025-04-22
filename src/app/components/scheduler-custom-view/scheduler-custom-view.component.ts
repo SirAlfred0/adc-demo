@@ -186,7 +186,7 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
           {
             classList: ''.concat(
               transformedDate.split('T')[0] == this.today && month == +splittedDate[1] ? ' today ' : ' ',
-              this.weekends.includes(dayIndex) || this.holidays.includes(transformedDate.split('T')[0]) ? ' text-holiday ' : ' ',
+              this.weekends.includes(dayIndex) || this.holidays.includes(transformedDate.split('T')[0]) ? ' holiday ' : ' ',
               firstMonth != +splittedDate[1] && secondMonth != +splittedDate[1]  ? ' unavailable ' : ' '
             ),
             label: splittedDate[1] + this.dateSplitter + splittedDate[2],
@@ -204,8 +204,6 @@ export class SchedulerCustomViewComponent extends AdcSchedulerBase implements On
 
         this.rows.push(row);
     });   
-    
-    this.markViewAsReady();
   }
 
   override weekendsChangesHandler(weekends: number[]): void 

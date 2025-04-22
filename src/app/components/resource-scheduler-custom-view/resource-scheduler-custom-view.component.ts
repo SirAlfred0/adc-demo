@@ -122,8 +122,8 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
       const startColumnIndex = row.columns.findIndex((c: ADCITableColumn) => this.tools.dateTime.dateOnly(c.value) == startDate);
       const endColumnIndex = row.columns.findIndex((c: ADCITableColumn) => this.tools.dateTime.dateOnly(c.value) == endDate);
 
-      const startTime = e.startTime == null ? 0 : +e.startTime.toString().split(':')[0];
-      const endTime = e.endTime == null ? 24 : +e.endTime.toString().split(':')[0];
+      const startTime = +this.tools.dateTime.hourOrDefault(e.startTime, '00');
+      const endTime = +this.tools.dateTime.hourOrDefault(e.endTime, '24');
 
       const cellEvent: ADCITableEvent = {
         columnStart: startColumnIndex != -1 ? startColumnIndex : null,
@@ -199,8 +199,6 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
       
       this.rows.push(row);
     });
-
-    super.markViewAsReady();
   }
 
   override holidaysChangesHandler(holidays: string[]): void 
@@ -291,7 +289,7 @@ export class ResourceSchedulerCustomViewComponent extends AdcResourceSchedulerBa
             label: this.labels?.daysOfWeek[dIndex] || day,
             classList: ''.concat(
               transformedDate.split('T')[0] == this.today ? ' today ' : ' ',
-              this.weekends.includes(dayIndex) || this.holidays.includes(transformedDate.split('T')[0]) ? ' text-holiday ' : ' '
+              this.weekends.includes(dayIndex) || this.holidays.includes(transformedDate.split('T')[0]) ? ' holiday ' : ' '
               ),
             prefix: '',
             suffix: date.split(this.dateSplitter)[1] + this.dateSplitter + date.split(this.dateSplitter)[2],

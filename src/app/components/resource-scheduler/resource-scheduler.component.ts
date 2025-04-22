@@ -168,6 +168,8 @@ export class ResourceSchedulerComponent implements OnInit, AfterContentInit{
 
   @ViewChild(ADCResourceSchedulerSource) resourceSchedulerDataSource = {} as ADCResourceSchedulerSource;
 
+  private isViewLoadedOnce = false;
+
   constructor(
     private dialog: MatDialog,
     private eventsService: EventsService,
@@ -205,7 +207,11 @@ export class ResourceSchedulerComponent implements OnInit, AfterContentInit{
   loadEvents(): void
   {
     this.eventsService.listResourceEvents().subscribe(events => {
+
+      // if(this.isViewLoadedOnce) return;
+
       this.resourceSchedulerDataSource.events = events;
+      this.isViewLoadedOnce = true;
     });
   }
 
